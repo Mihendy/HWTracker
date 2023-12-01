@@ -1,14 +1,86 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HWTracker</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>HW Tracker</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+<style>
+    
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: #D9D9D9;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: -150px;
+}
+
+.logo {
+    width: 142px;
+    height: 162px;
+    margin-right: 50px;
+}
+
+h1 {
+    font-family: Arial, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 108px;
+    line-height: 89%;
+    text-align: center;
+    color: #000000;
+    margin-right: 150px;
+
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 239px;
+    height: 74px;
+    background: #6A6A6A;
+    border-radius: 16px;
+    margin-top: 20px;
+}
+
+.button-container:hover {
+    background-color: gray;
+}
+
+.login-button {
+    padding: 19px 126px;
+    gap: 10px;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 89%;
+    text-align: center;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+</style>
 <body>
-    <h1>HWTracker</h1>
-    <a href="login" class="login-button">Войти</a>
+    <div class="header">
+        <img src="../logo.png" alt="Logo" class="logo">
+        <h1>HW Tracker</h1>
+    </div>
+    <div class="button-container">
+        <a href="#" class="login-button">Войти</a>
+    </div>
 </body>
 </html>

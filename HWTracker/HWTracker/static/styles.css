@@ -1,4 +1,4 @@
-/* styles.css */
+/* static/style.css */
 
 body {
     display: flex;
@@ -7,16 +7,61 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    background: #D9D9D9;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: -150px;
+}
+
+.logo {
+    width: 142px;
+    height: 162px;
+    margin-right: 50px;
 }
 
 h1 {
-    color: #333;
+    font-family: Arial, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 108px;
+    line-height: 89%;
+    text-align: center;
+    color: #000000;
+    margin-right: 150px;
+
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 239px;
+    height: 74px;
+    background: #6A6A6A;
+    border-radius: 16px;
+    margin-top: 20px;
+}
+
+.button-container:hover {
+    background-color: gray;
 }
 
 .login-button {
-    background-color: #ccc;
-    padding: 10px 20px;
+    padding: 19px 126px;
+    gap: 10px;
+    font-family: 'Inter', serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 89%;
+    text-align: center;
+    color: #FFFFFF;
     text-decoration: none;
-    color: #000;
-    border-radius: 5px;
 }
