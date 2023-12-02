@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <title>HW Tracker</title>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
     </div>
     <div class="top-bar"></div>
     <div class="exit-button-container">
-        <a href=".." class="exit-button">Выйти</a>
+        <a href="logout" class="exit-button">Выйти</a>
     </div>
     <div class="box-course">
         <div class="word-course">
@@ -27,17 +28,21 @@
         </div>
         </div>
     </div>
-    <div class="block-of-subject">
-        <div class="name-of-subject">
-            <p class="text-subject">Название предмета</p>
-            <button class="button-done"></button>
+    <div class="grid-container">
+        {% for task in tasks %}
+        <div class="block-of-subject">
+            <div class="name-of-subject">
+                <p class="text-subject">{{ task.subject }}</p>
+                <button class="button-done"></button>
+            </div>
+            <div class="block-hw">
+                <p class="theme">{{ task.topic }}</p>
+                <p class="date">{{ task.due_date }}</p>
+                <p class="homework">{{ task.description }}</p>
+            </div>
         </div>
-        <div class="block-hw">
-            <p class="theme">Тема</p>
-            <p class="date">Дата</p>
-            <p class="homework">ДЗ</p>
-        </div>
-    </div>
+        {% endfor %}
+      </div>
     <div class="text-container">
         <p class="text-right-corner">{{ username }}</p>
     </div>

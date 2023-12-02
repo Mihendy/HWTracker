@@ -2,18 +2,20 @@ from django.shortcuts import render, redirect
 import requests
 from urllib.parse import urlparse, parse_qs
 import jwt
+from .models import Task
 
 def index(request):
     username = request.session.get('username')
-    if username is not None:
-        return redirect('student')
-    return render(request, 'main/index.html')
+    if username is None:
+        return render(request, 'main/index.html')
+    return redirect('student')
 
 def student(request):
     username = request.session.get('username')
     if username is None:
         return redirect('/')
-    return render(request, 'main/student.html', {'username': username})
+    tasks = get_tasks()
+    return render(request, 'main/student.html', {'username': username, 'tasks': tasks})
 
 def handle_auth(request):
     code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]
@@ -21,6 +23,10 @@ def handle_auth(request):
     decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
     request.session['username'] = decoded['name']
     return redirect('student')
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')
 
 def get_user_information(code):
     request = requests.post('https://oauth2.googleapis.com/token', 
@@ -32,3 +38,6 @@ def get_user_information(code):
         'grant_type': 'authorization_code',
     })
     return request.json()
+
+def get_tasks():
+    return Task.objects.all()

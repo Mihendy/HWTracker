@@ -19,21 +19,26 @@ body {
 }
 
 .logo {
+  position: relative;
+  top: 0;
+  left: 0;
   width: 142px;
   height: 162px;
   margin-top: 0px;
 }
 
 .logo-1 {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .tg {
+  z-index: 1;
   width: 100px;
   height: 100px;
 }
@@ -49,13 +54,13 @@ body {
 }
 
 .top-bar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 100%;
   height: 150px;
   background-color: rgb(196, 196, 196);
-  z-index: -1;
 }
 
 h1 {
@@ -100,7 +105,8 @@ h1 {
 }
 /*кнопка выхода*/
 .exit-button-container {
-  position: absolute;
+  position: fixed;
+  z-index: 1;
   top: 40px;
   right: 50px;
   display: flex;
@@ -130,10 +136,11 @@ h1 {
 
 /*курс*/
 .box-course {
-  position: absolute;
+  position: fixed;
   top: 27px;
   left: 150px;
   display: flex;
+  z-index: 1;
   flex-direction: column;
   flex: none;
 }
@@ -177,12 +184,6 @@ h1 {
 
 /*блок*/
 .block-of-subject {
-  position: absolute;
-  top: 200px;
-  left: 150px;
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
   align-items: center;
   width: 325px;
   height: 190px;
@@ -208,9 +209,9 @@ h1 {
 }
 
 .text-subject {
-  position: absolute;
-  left: 10px;
-  top: -5px;
+  position: relative;
+  left: 0px;
+  top: -20px;
   font-family: 'Franklin Gothic Medium';
   font-style: normal;
   font-weight: 600;
@@ -220,11 +221,11 @@ h1 {
 }
 
 .button-done {
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  position: relative;
+  right: 100px;
+  top: 100px;
   width: 32px;
-  height: 32px;
+  height: 320px;
   background: #727272;
   border-radius: 10px;
 }
@@ -243,7 +244,7 @@ h1 {
 }
 
 .theme {
-  position: absolute;
+  position: relative;
   left: 10px;
   top: 40px;
   width: 43px;
@@ -258,7 +259,7 @@ h1 {
 }
 
 .homework {
-  position: absolute;
+  position: relative;
   left: 10px;
   top: 90px;
   font-family: 'Franklin Gothic Medium';
@@ -273,7 +274,7 @@ h1 {
 }
 
 .date {
-  position: absolute;
+  position: relative;
   right: 10px;
   top: 40px;
   width: 124px;
@@ -287,6 +288,7 @@ h1 {
 
 .text-container {
   position: fixed;
+  z-index: 1;
   top: 14px;
   right: 300px;
   max-width: calc(100% - 300px); /* Adjust the max-width based on your layout */
@@ -296,8 +298,20 @@ h1 {
 }
 
 .text-right-corner {
+
   font-family: 'Franklin Gothic Medium';
   font-size: 40px;
   color: #000000;
   /* Add any additional styles as needed */
+}
+
+.grid-container {
+  position: absolute;
+  top: 180px;
+  left: 30px;
+  display: grid;
+  grid-template-columns: repeat(20, 500px);
+  grid-auto-rows: 200px;
+  grid-auto-flow: dense;
+  grid-gap: 20px;
 }

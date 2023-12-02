@@ -7,8 +7,8 @@ class Task(models.Model):
     due_date = models.DateTimeField()
     completed = models.BooleanField(default=False)
     def __str__(self):
-        return self.name
+        return f'{self.subject} - {self.topic}'
     def get_absolute_url(self):
-        return "/task/%i/" % self.id
+        return f"/task/{self.id}/"
     class Meta:
         ordering = ['due_date']
