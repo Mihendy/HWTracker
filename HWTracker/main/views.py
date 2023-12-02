@@ -5,8 +5,8 @@ from social_django.utils import psa
 def index(request):
     return render(request, 'main/index.html')
 
-def test(request):
-    return HttpResponse("Logged in")
+def student(request):
+    return render(request, 'main/student.html')
 
 @psa('social:complete')
 def complete(request, backend, *args, **kwargs):

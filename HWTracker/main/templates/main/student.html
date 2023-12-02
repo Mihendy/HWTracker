@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+</head>
+
+<body>
+    <div class="logo-1">
+        <img src="{% static 'main/logo.png' %}" alt="Logo" class="logo">
+    </div>
+    <div class="tg-button">
+        <img src="{% static 'main/tg.png' %}" alt="Telegram" class="tg">
+    </div>
+    <div class="top-bar"></div>
+    <div class="exit-button-container">
+        <a href=".." class="exit-button">Выйти</a>
+    </div>
+    <div class="box-course">
+        <div class="word-course">
+        Курс
+        <div class="extra-buttons">
+            <button class="course-button">1</button>
+            <button class="course-button">2</button>
+        </div>
+        </div>
+    </div>
+    <div class="block-of-subject">
+        <div class="name-of-subject">
+            <p class="text-subject">Название предмета</p>
+            <button class="button-done"></button>
+        </div>
+        <div class="block-hw">
+            <p class="theme">Тема</p>
+            <p class="date">Дата</p>
+            <p class="homework">ДЗ</p>
+        </div>
+    </div>
+</body>
+</html>

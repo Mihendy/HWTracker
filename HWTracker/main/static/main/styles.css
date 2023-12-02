@@ -1,67 +1,286 @@
 /* static/style.css */
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    background: #D9D9D9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: #D9D9D9;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin-top: -150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: -150px;
 }
 
 .logo {
-    width: 142px;
-    height: 162px;
-    margin-right: 50px;
+  width: 142px;
+  height: 162px;
+  margin-top: 0px;
+}
+
+.logo-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tg {
+  width: 100px;
+  height: 100px;
+}
+
+.tg-button {
+  position: fixed;
+  bottom: 40px;
+  right: 50px;
+}
+
+.tg-button:hover img {
+  opacity: 0.7;
+}
+
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-color: rgb(196, 196, 196);
+  z-index: -1;
 }
 
 h1 {
-    font-family: Arial, serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 108px;
-    line-height: 89%;
-    text-align: center;
-    color: #000000;
-    margin-right: 150px;
-
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 108px;
+  line-height: 89%;
+  text-align: center;
+  color: #000000;
+  margin-right: center;
 }
 
+/*кнопка входа*/
 .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 239px;
-    height: 74px;
-    background: #6A6A6A;
-    border-radius: 16px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 239px;
+  height: 74px;
+  background: #6A6A6A;
+  border-radius: 16px;
+  margin-top: -30px;
 }
 
 .button-container:hover {
-    background-color: gray;
+  background-color: gray;
 }
 
 .login-button {
-    padding: 19px 126px;
-    gap: 10px;
-    font-family: 'Inter', serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 48px;
-    line-height: 89%;
-    text-align: center;
-    color: #FFFFFF;
-    text-decoration: none;
+  padding: 19px 54px;
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 89%;
+  text-align: center;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+/*кнопка выхода*/
+.exit-button-container {
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 239px;
+  height: 74px;
+  background: #6A6A6A;
+  border-radius: 16px;
+}
+
+.exit-button-container:hover {
+  background-color: gray;
+}
+
+.exit-button {
+  padding: 19px 54px;
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-size: 48px;
+  line-height: 89%;
+  text-align: center;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/*курс*/
+.box-course {
+  position: absolute;
+  top: 27px;
+  left: 150px;
+  display: flex;
+  flex-direction: column;
+  flex: none;
+}
+
+.word-course {
+  font-family: 'Franklin Gothic Medium';
+  font-size: 25px;
+  color: #3a3a3a;
+  position: relative;
+  background-color: #E3E3E3;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 60px;
+  height: 20px;
+}
+
+.extra-buttons {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: center; 
+  border-radius: 10px;
+  width: 80px;
+  height: 20px;
+}
+
+.word-course:hover .extra-buttons {
+  display: block;
+}
+
+.course-button {
+  padding: 6px 24px;
+  font-family: 'Franklin Gothic Medium';
+  font-size: 20px;
+  border-radius: 10px;
+  width: 80px;
+}
+
+/*блок*/
+.block-of-subject {
+  position: absolute;
+  top: 200px;
+  left: 150px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  width: 325px;
+  height: 190px;
+  background: #FFFFFF;
+  border-radius: 12px;
+}
+
+.name-of-subject {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 24px;
+  width: 325px;
+  height: 56px;
+  background: #F8F9FA;
+  border-bottom: 1px solid #E9ECEF;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  border-radius: 10px;
+}
+
+.text-subject {
+  position: absolute;
+  left: 10px;
+  top: -5px;
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #212529;
+}
+
+.button-done {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 32px;
+  height: 32px;
+  background: #727272;
+  border-radius: 10px;
+}
+
+.block-hw {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 12px;
+  width: 325px;
+  height: 133px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.theme {
+  position: absolute;
+  left: 10px;
+  top: 40px;
+  width: 43px;
+  height: 24px;
+  font-family: 'Franklin Gothic Medium';
+  font-size: 20px;
+  line-height: 24px;
+  color: #212529;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.homework {
+  position: absolute;
+  left: 10px;
+  top: 90px;
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: #212529;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.date {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  width: 124px;
+  height: 24px;
+  font-family: 'Franklin Gothic Medium';
+  font-size: 20px;
+  line-height: 24px;
+  text-align: right;
+  color: #212529;
 }

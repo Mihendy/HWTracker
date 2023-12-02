@@ -1,7 +1,8 @@
 from django.db import models
 
 class Task(models.Model):
-    name = models.CharField(max_length=50)
+    subject = models.CharField(max_length=50)
+    topic = models.CharField(max_length=50)
     description = models.TextField()
     due_date = models.DateTimeField()
     completed = models.BooleanField(default=False)
