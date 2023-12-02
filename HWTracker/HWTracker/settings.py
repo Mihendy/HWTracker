@@ -25,23 +25,33 @@ SECRET_KEY = 'django-insecure-08v11fwnpb_!fsio=!ura@1%#1wl%jqh7c2@*i1#6=dx7_)8v$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SESSION_COOKIE_NAME = 'sessionid'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1055991052391-9m1ccc4ph23u71sf50vfor371bacjmlr.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '437781818230-0s7s5qm94n5u4vgl6ghrlkr4lvq60i1a.apps.googleusercontent.com'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
-LOGIN_URL = 'login'
-
-LOGOUT_URL = 'logout'
-
-LOGIN_REDIRECT_URL = '/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
 )
 
 # Application definition

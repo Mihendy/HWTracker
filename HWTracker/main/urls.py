@@ -3,6 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('social-auth/complete/google-oauth2/', views.student, name='google-auth-complete'),
+    path('student', views.student, name='student'),
     path('', views.index, name='index'),
 ]

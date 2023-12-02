@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from social_django.utils import psa
+import requests
+from urllib.parse import urlparse, parse_qs
+import jwt
 
 def index(request):
     return render(request, 'main/index.html')
@@ -8,12 +9,19 @@ def index(request):
 def student(request):
     return render(request, 'main/student.html')
 
-@psa('social:complete')
-def complete(request, backend, *args, **kwargs):
-    """View to handle the completion of the social authentication."""
-    # This view is decorated with @psa, which stands for Python Social Auth.
-    # It handles the social authentication process.
-    # Your code to process the authenticated user goes here.
-    # For example, you can get user information from kwargs['response'].
+def handle_auth(request):
+    code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]
+    data = get_user_information(code)
+    decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
+    print(decoded)
+    return redirect('student')
 
-    return redirect('/test')  # Redirect the user to the home page after authentication.
+def get_user_information(code):
+    request = requests.post('https://oauth2.googleapis.com/token', data={
+        'code': code,
+        'client_id': '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com',
+        'client_secret': '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',
+        'redirect_uri': 'http://127.0.0.1:8000/auth',
+        'grant_type': 'authorization_code',
+    })
+    return request.json()
