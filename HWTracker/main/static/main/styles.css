@@ -185,8 +185,8 @@ h1 {
 /*блок*/
 .block-of-subject {
   align-items: center;
-  width: 325px;
-  height: 190px;
+  width: 350px;
+  height: 250px;
   background: #FFFFFF;
   border-radius: 12px;
 }
@@ -197,7 +197,7 @@ h1 {
   flex-direction: column;
   align-items: flex-start;
   padding: 16px 24px;
-  width: 325px;
+  width: 350px;
   height: 56px;
   background: #F8F9FA;
   border-bottom: 1px solid #E9ECEF;
@@ -211,42 +211,32 @@ h1 {
 .text-subject {
   position: relative;
   left: 0px;
-  top: -20px;
+  top: 0px;
   font-family: 'Franklin Gothic Medium';
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 24px;
   color: #212529;
 }
 
 .button-done {
   position: relative;
-  right: 100px;
-  top: 100px;
-  width: 32px;
-  height: 320px;
+  right: -305px;
+  top: -195px;
+  width: 30px;
+  height: 30px;  /* Добавьте это свойство для установки фиксированной высоты */
+  display: block;
+  overflow: visible;
   background: #727272;
   border-radius: 10px;
 }
 
-.block-hw {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  gap: 12px;
-  width: 325px;
-  height: 133px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
 
 .theme {
   position: relative;
-  left: 10px;
-  top: 40px;
+  left: 20px;
+  top: 0px;
   width: 43px;
   height: 24px;
   font-family: 'Franklin Gothic Medium';
@@ -260,12 +250,12 @@ h1 {
 
 .homework {
   position: relative;
-  left: 10px;
-  top: 90px;
+  left: 0px;
+  top: -130px;
   font-family: 'Franklin Gothic Medium';
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 28px;
   color: #212529;
   flex: none;
@@ -275,12 +265,12 @@ h1 {
 
 .date {
   position: relative;
-  right: 10px;
-  top: 40px;
+  right: -160px;
+  top: -120px;
   width: 124px;
   height: 24px;
   font-family: 'Franklin Gothic Medium';
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   text-align: right;
   color: #212529;
@@ -291,27 +281,23 @@ h1 {
   z-index: 1;
   top: 14px;
   right: 300px;
-  max-width: calc(100% - 300px); /* Adjust the max-width based on your layout */
+  max-width: calc(100% - 300px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .text-right-corner {
-
   font-family: 'Franklin Gothic Medium';
   font-size: 40px;
   color: #000000;
-  /* Add any additional styles as needed */
 }
 
 .grid-container {
+  display: flex;
+  flex-flow: row wrap;
   position: absolute;
   top: 180px;
-  left: 30px;
-  display: grid;
-  grid-template-columns: repeat(20, 500px);
-  grid-auto-rows: 200px;
-  grid-auto-flow: dense;
-  grid-gap: 20px;
+  left: 150px;
+  grid-gap: 10px;
 }

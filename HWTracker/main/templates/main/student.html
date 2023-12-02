@@ -33,16 +33,14 @@
         <div class="block-of-subject">
             <div class="name-of-subject">
                 <p class="text-subject">{{ task.subject }}</p>
-                <button class="button-done"></button>
             </div>
-            <div class="block-hw">
-                <p class="theme">{{ task.topic }}</p>
-                <p class="date">{{ task.due_date }}</p>
-                <p class="homework">{{ task.description }}</p>
-            </div>
+            <p class="theme">{{ task.topic }}</p>
+            <p class="date">{{ task.due_date }}</p>
+            <p class="homework">{{ task.description }}</p>
+            <button class="button-done"></button>
         </div>
         {% endfor %}
-      </div>
+    </div>
     <div class="text-container">
         <p class="text-right-corner">{{ username }}</p>
     </div>
