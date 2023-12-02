@@ -7,7 +7,8 @@ def index(request):
     return render(request, 'main/index.html')
 
 def student(request):
-    return render(request, 'main/student.html')
+    username = 'your_username'
+    return render(request, 'main/student.html', {'username': username})
 
 def handle_auth(request):
     code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]

@@ -284,3 +284,20 @@ h1 {
   text-align: right;
   color: #212529;
 }
+
+.text-container {
+  position: fixed;
+  top: 14px;
+  right: 300px;
+  max-width: calc(100% - 300px); /* Adjust the max-width based on your layout */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-right-corner {
+  font-family: 'Franklin Gothic Medium';
+  font-size: 40px;
+  color: #000000;
+  /* Add any additional styles as needed */
+}
