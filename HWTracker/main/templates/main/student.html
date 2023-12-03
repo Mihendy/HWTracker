@@ -32,12 +32,11 @@
         {% for task in tasks %}
         <div class="block-of-subject">
             <div class="name-of-subject">
-                <p class="text-subject">{{ task.subject }}</p>
+                <div class="text-subject">{{ task.subject }}</div>
             </div>
-            <p class="theme">{{ task.topic }}</p>
-            <p class="date">{{ task.due_date }}</p>
-            <p class="homework">{{ task.description }}</p>
-            <button class="button-done"></button>
+            <div class="theme">{{ task.topic }}</div>
+            <div class="homework">{{ task.description }}</div>
+            <div class="date">{{ task.due_date|date:"d.m.y H:i" }}</div>
         </div>
         {% endfor %}
     </div>

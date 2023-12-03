@@ -184,97 +184,83 @@ h1 {
 
 /*блок*/
 .block-of-subject {
+  position: relative;
   align-items: center;
-  width: 350px;
+  width: 400px;
   height: 250px;
   background: #FFFFFF;
   border-radius: 12px;
 }
 
 .name-of-subject {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 16px 24px;
-  width: 350px;
-  height: 56px;
+  position: sticky;
+  width: auto;
+  height: 50px;
   background: #F8F9FA;
   border-bottom: 1px solid #E9ECEF;
-  flex: none;
   order: 0;
-  align-self: stretch;
-  flex-grow: 0;
   border-radius: 10px;
 }
 
 .text-subject {
   position: relative;
-  left: 0px;
-  top: 0px;
+  left: 10px;
+  top: 10px;
   font-family: 'Franklin Gothic Medium';
   font-style: normal;
   font-weight: 600;
   font-size: 30px;
   line-height: 24px;
-  color: #212529;
+  color: rgb(90, 90, 90)
 }
 
-.button-done {
-  position: relative;
-  right: -305px;
-  top: -195px;
+/* .button-done {
+  position: sticky;
   width: 30px;
-  height: 30px;  /* Добавьте это свойство для установки фиксированной высоты */
+  height: 30px;
   display: block;
   overflow: visible;
   background: #727272;
   border-radius: 10px;
-}
+} */
+
 
 
 .theme {
   position: relative;
-  left: 20px;
-  top: 0px;
-  width: 43px;
-  height: 24px;
+  left: 10px;
+  width: auto;
+  height: 40px;
   font-family: 'Franklin Gothic Medium';
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 24px;
   color: #212529;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
 
 .homework {
   position: relative;
-  left: 0px;
-  top: -130px;
+  left: 10px;
+  right: 10px;
+  width: calc(100% - 10px);
+  height: auto;
+  word-wrap: break-word;
   font-family: 'Franklin Gothic Medium';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 28px;
   color: #212529;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
 .date {
   position: relative;
-  right: -160px;
-  top: -120px;
-  width: 124px;
-  height: 24px;
+  top: 110px;
+  max-width: calc(100% - 10px);
   font-family: 'Franklin Gothic Medium';
   font-size: 18px;
   line-height: 24px;
   text-align: right;
   color: #212529;
 }
+/*конец блок*/
 
 .text-container {
   position: fixed;
