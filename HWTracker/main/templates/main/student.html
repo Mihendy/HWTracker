@@ -39,6 +39,9 @@
             <div class="date">{{ task.due_date|date:"d.m.y H:i" }}</div>
         </div>
         {% endfor %}
+        <div class="add-button">
+            <img src="{% static 'main/addbutton.png' %}" alt="AddButton" class="add-button">
+        </div>
     </div>
     <div class="text-container">
         <p class="text-right-corner">{{ username }}</p>
