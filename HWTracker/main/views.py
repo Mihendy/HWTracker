@@ -3,6 +3,7 @@ import requests
 from urllib.parse import urlparse, parse_qs
 import jwt
 from .models import Task
+from .forms import TaskForm
 
 
 def index(request):
@@ -16,10 +17,28 @@ def index(request):
 def student(request):
     template_name = 'main/student.html'
     username = request.session.get('username')
+    is_admin = request.user.is_superuser
     if username is None:
         return redirect('/')
     tasks = get_tasks()
-    return render(request, template_name, {'username': username, 'tasks': tasks})
+    return render(request, template_name, {'username': username, 'tasks': tasks, 'is_admin': is_admin})
+
+
+def add_task_form(request):
+    template_name = 'main/add_task_form.html'
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            new_task = Task(subject=form.cleaned_data["subject"],
+                            topic=form.cleaned_data["topic"],
+                            description=form.cleaned_data["description"],
+                            due_date=form.cleaned_data["due_date"])
+            new_task.save()
+            return redirect("/student")
+    else:
+        form = TaskForm()
+
+    return render(request, template_name, {"form": form})
 
 
 def handle_auth(request):
