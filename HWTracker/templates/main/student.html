@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
-    <title>HW Tracker</title>
+    <title>{% block title %} HWTracker {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
     <div class="logo-1">
-        <img src="{% static 'main/logo.png' %}" alt="Logo" class="logo">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
     </div>
     <div class="tg-button">
-        <img src="{% static 'main/tg.png' %}" alt="Telegram" class="tg">
+        <img src="{% static 'img/tg.png' %}" alt="Telegram" class="tg">
     </div>
     <div class="top-bar"></div>
     <div class="exit-button-container">
@@ -40,7 +40,7 @@
         </div>
         {% endfor %}
         <div class="add-button">
-            <img src="{% static 'main/addbutton.png' %}" alt="AddButton" class="add-button">
+            <img src="{% static 'img/add-button.png' %}" alt="AddButton" class="add-button">
         </div>
     </div>
     <div class="text-container">

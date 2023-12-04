@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HW Tracker</title>
-    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <title>{% block title %} HWTracker {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 
 <body>
     <div class="header">
-        <img src="{% static 'main/logo.png' %}" alt="Logo" class="logo">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
         <h1>HW Tracker</h1>
     </div>
     <div class="button-container">
