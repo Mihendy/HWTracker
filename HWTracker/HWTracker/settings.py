@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-08v11fwnpb_!fsio=!ura@1%#1wl%jqh7c2@*i1#6=dx7_)8v$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 SESSION_COOKIE_NAME = 'sessionid'
 
@@ -42,6 +42,10 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_DIRS = (
+    'HWTracker/templates',
 )
 
 SOCIAL_AUTH_PIPELINE = (
