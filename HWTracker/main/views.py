@@ -4,6 +4,10 @@ from urllib.parse import urlparse, parse_qs
 import jwt
 from .models import Task
 from .forms import TaskForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseForbidden
 
 
 def index(request):
@@ -17,15 +21,20 @@ def index(request):
 def student(request):
     template_name = 'main/student.html'
     username = request.session.get('username')
+    first_name, last_name = request.user.first_name, request.user.last_name
     is_admin = request.user.is_superuser
     if username is None:
         return redirect('/')
     tasks = get_tasks()
-    return render(request, template_name, {'username': username, 'tasks': tasks, 'is_admin': is_admin})
+    return render(request, template_name,
+                  {'first_name': first_name, 'last_name': last_name,
+                   'tasks': tasks, 'is_admin': is_admin})
 
 
 def add_task_form(request):
     template_name = 'main/add_task_form.html'
+    if not request.user.is_superuser:
+        return HttpResponseForbidden()
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -45,7 +54,20 @@ def handle_auth(request):
     code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]
     data = get_user_information(code)
     decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
-    request.session['username'] = decoded['name']
+    email = decoded['email']
+    name = email.split("@")[0]
+    request.session['username'], request.session['email'] = name, email
+    for key, value in decoded.items():
+        print('{} => {}'.format(key, value))
+    user, created = User.objects.get_or_create(username=name,
+                                               email=email,
+                                               first_name=decoded['given_name'],
+                                               last_name=decoded['family_name'])
+    if created:
+        print("Пользователь создан")
+    else:
+        print("Пользователь уже есть")
+    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     return redirect('student')
 
 

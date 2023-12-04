@@ -9,27 +9,31 @@
 </head>
 
 <body>
-    <div class="logo-1">
-        <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
-    </div>
-    <div class="tg-button">
-        <img src="{% static 'img/tg.png' %}" alt="Telegram" class="tg">
-    </div>
-    <div class="top-bar"></div>
+<div class="logo-1">
+    <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
+</div>
+<div class="tg-button">
+    <img src="{% static 'img/tg.png' %}" alt="Telegram" class="tg">
+</div>
+<div class="top-bar">
     <div class="exit-button-container">
         <a href="logout" class="exit-button">Выйти</a>
     </div>
     <div class="box-course">
         <div class="word-course">
-        Курс
-        <div class="extra-buttons">
-            <button class="course-button">1</button>
-            <button class="course-button">2</button>
-        </div>
+            Курс
+            <div class="extra-buttons">
+                <button class="course-button">1</button>
+                <button class="course-button">2</button>
+            </div>
         </div>
     </div>
-    <div class="grid-container">
-        {% for task in tasks %}
+    <div class="text-container">
+        <p class="text-right-corner">{{ first_name }} {{ last_name }}</p>
+    </div>
+</div>
+<div class="grid-container">
+    {% for task in tasks %}
         <div class="block-of-subject">
             <div class="name-of-subject">
                 <div class="text-subject">{{ task.subject }}</div>
@@ -38,13 +42,13 @@
             <div class="homework">{{ task.description }}</div>
             <div class="date">{{ task.due_date|date:"d.m.y H:i" }}</div>
         </div>
-        {% endfor %}
-        <div class="add-button">
+    {% endfor %}
+    {% if is_admin %}
+        <div class="add-button" onclick="window.location.href = '/taskform'" ;>
             <img src="{% static 'img/add-button.png' %}" alt="AddButton" class="add-button">
         </div>
-    </div>
-    <div class="text-container">
-        <p class="text-right-corner">{{ username }}</p>
-    </div>
+    {% endif %}
+</div>
+
 </body>
 </html>
