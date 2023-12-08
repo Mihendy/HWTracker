@@ -62,7 +62,7 @@ def handle_auth(request):
     user, created = User.objects.get_or_create(username=name,
                                                email=email,
                                                first_name=decoded['given_name'],
-                                               last_name=decoded.get('family_name'))
+                                               last_name=decoded.get('family_name') or "")
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     return redirect('student')
 
