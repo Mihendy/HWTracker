@@ -21,19 +21,22 @@ def index(request):
 def student(request):
     template_name = 'main/student.html'
     username = request.session.get('username')
-    first_name, last_name = request.user.first_name, request.user.last_name
-    is_admin = request.user.is_superuser
+    user = request.user
+    first_name = user.first_name
+    last_name = user.last_name
+    group = user.group
+    is_editor = request.user.is_editor
     if username is None:
         return redirect('/')
     tasks = get_tasks()
     return render(request, template_name,
                   {'first_name': first_name, 'last_name': last_name,
-                   'tasks': tasks, 'is_admin': is_admin})
+                   'tasks': tasks, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
 
 
 def add_task_form(request):
     template_name = 'main/add_task_form.html'
-    if not request.user.is_superuser:
+    if not request.user.is_editor:
         return HttpResponseForbidden()
     if request.method == "POST":
         form = TaskForm(request.POST)
