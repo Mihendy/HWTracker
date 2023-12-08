@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import requests
 from urllib.parse import urlparse, parse_qs
 import jwt
-from .models import Task
+from .models import Task, Group
 from .forms import TaskForm
 # noinspection PyUnresolvedReferences
 from users.models import User
@@ -30,9 +30,10 @@ def student(request):
     last_name = user.last_name
     group = user.group
     is_editor = request.user.is_editor
+    
     if username is None:
         return redirect('/')
-    tasks = get_tasks()
+    tasks = get_tasks(user.group)
     return render(request, template_name,
                   {'first_name': first_name, 'last_name': last_name,
                    'tasks': tasks, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
@@ -45,6 +46,7 @@ def add_task_form(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
+            groups = get_groups()
             new_task = Task(subject=form.cleaned_data["subject"],
                             topic=form.cleaned_data["topic"],
                             description=form.cleaned_data["description"],
@@ -91,5 +93,8 @@ def get_user_information(code):
     return request.json()
 
 
-def get_tasks():
-    return Task.objects.all()
+def get_tasks(group: Group) -> list[Task]:
+    return group.tasks.all()
+
+def get_groups():
+    return Group.objects.all()

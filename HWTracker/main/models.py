@@ -9,7 +9,7 @@ class Group(models.Model):
         return self.name
 
     class Meta:
-        pass
+        ordering = ['name']
 
 
 class Task(models.Model):
