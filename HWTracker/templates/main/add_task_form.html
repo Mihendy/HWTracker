@@ -6,13 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} Создание {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 </head>
 <body>
-<form class="post-subject" method="post">
+<form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="save-button" value="Создать">
+    {{ form.subject.errors }}
+    <div class="input-group mb-3">
+        <span class="input-group-text">Предмет</span>
+        {{ form.subject }}
+    </div>
+
+    {{ form.topic.errors }}
+    <div class="input-group mb-3">
+        <span class="input-group-text">Тема</span>
+        {{ form.topic }}
+    </div>
+
+    {{ form.description.errors }}
+    <div class="input-group mb-3">
+        <span class="input-group-text">Описание</span>
+        {{ form.description }}
+    </div>
+
+    {{ form.due_date.errors }}
+    <div class="input-group mb-3">
+        <span class="input-group-text">Сдать до</span>
+        {{ form.due_date }}
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-secondary mb-auto btn-lg">Создать</button>
+    </div>
 </form>
+
+<script src="{% static 'js/script.js' %}"></script>
+
 </body>
 </html>

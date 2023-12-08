@@ -15,6 +15,7 @@ REDIRECT_URI = 'http://127.0.0.1:8000/auth'
 
 CLIENT_SECRET = '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'
 
+
 def index(request):
     template_name = 'main/index.html'
     username = request.session.get('username')
@@ -32,7 +33,7 @@ def student(request):
     last_name = user.last_name
     group = user.group
     is_editor = request.user.is_editor
-    
+
     if username is None:
         return redirect('/')
     if is_editor:
@@ -99,6 +100,7 @@ def get_user_information(code):
 
 def get_tasks(group: Group) -> list[Task]:
     return group.tasks.all() if group else []
+
 
 def get_groups():
     return Group.objects.all()
