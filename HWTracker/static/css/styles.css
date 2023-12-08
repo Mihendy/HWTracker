@@ -38,18 +38,20 @@ body {
 }
 
 .tg {
-  z-index: 1;
+  z-index: 3;
   width: 100px;
   height: 100px;
 }
 
 .tg-button {
+  z-index: 3;
   position: fixed;
   bottom: 40px;
   right: 50px;
 }
 
 .tg-button:hover img {
+  z-index: 3;
   opacity: 0.7;
 }
 
