@@ -30,28 +30,9 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '437781818230-0s7s5qm94n5u4vgl6ghrlkr4lvq60i1a.apps.googleusercontent.com'
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.auth_allowed',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
-)
 
 # Application definition
 
@@ -63,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'HWTracker.urls'
