@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 
 class Task(models.Model):
@@ -24,8 +25,14 @@ class Group(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_user_count(self):
-    #     return self.users.count()
-
     class Meta:
         pass
+
+
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'get_user_count')
+
+    def get_user_count(self, obj):
+        return obj.users.count()
+
+    get_user_count.short_description = 'Количество пользователей'

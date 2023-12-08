@@ -4,9 +4,9 @@ from urllib.parse import urlparse, parse_qs
 import jwt
 from .models import Task
 from .forms import TaskForm
-from django.contrib.auth.models import User
+# noinspection PyUnresolvedReferences
+from users.models import User
 from django.contrib.auth import login
-from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseForbidden
 
 
