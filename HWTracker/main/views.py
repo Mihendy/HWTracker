@@ -13,6 +13,8 @@ CLIENT_ID = '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleuserconten
 
 REDIRECT_URI = 'http://127.0.0.1:8000/auth'
 
+CLIENT_SECRET = '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'
+
 def index(request):
     template_name = 'main/index.html'
     username = request.session.get('username')
@@ -85,9 +87,9 @@ def get_user_information(code):
     request = requests.post('https://oauth2.googleapis.com/token',
                             data={
                                 'code': code,
-                                'client_id': '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com',
-                                'client_secret': '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',
-                                'redirect_uri': 'http://127.0.0.1:8000/auth',
+                                'client_id': CLIENT_ID,
+                                'client_secret': CLIENT_SECRET,
+                                'redirect_uri': REDIRECT_URI,
                                 'grant_type': 'authorization_code',
                             })
     return request.json()
