@@ -28,7 +28,7 @@ SESSION_COOKIE_NAME = 'sessionid'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 

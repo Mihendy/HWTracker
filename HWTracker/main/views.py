@@ -9,12 +9,16 @@ from users.models import User
 from django.contrib.auth import login
 from django.http import HttpResponseForbidden
 
+CLIENT_ID = '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com'
+
+REDIRECT_URI = 'http://127.0.0.1:8000/auth'
 
 def index(request):
     template_name = 'main/index.html'
     username = request.session.get('username')
     if username is None:
-        return render(request, template_name)
+        return render(request, template_name, {'client_id': CLIENT_ID,
+                                               'redirect_uri': REDIRECT_URI})
     return redirect('student')
 
 

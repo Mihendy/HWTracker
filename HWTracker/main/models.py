@@ -2,12 +2,23 @@ from django.db import models
 from django.contrib import admin
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        pass
+
+
 class Task(models.Model):
     subject = models.CharField(max_length=50)
     topic = models.CharField(max_length=50)
     description = models.TextField(max_length=150)
     due_date = models.DateTimeField()
     completed = models.BooleanField(default=False)
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name='tasks')
 
     def __str__(self):
         return f'{self.subject} - {self.topic}'
@@ -17,16 +28,6 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['due_date']
-
-
-class Group(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        pass
 
 
 class GroupAdmin(admin.ModelAdmin):
