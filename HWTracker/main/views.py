@@ -48,7 +48,6 @@ def add_task_form(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
-            groups = get_groups()
             new_task = Task(subject=form.cleaned_data["subject"],
                             topic=form.cleaned_data["topic"],
                             description=form.cleaned_data["description"],
@@ -96,7 +95,7 @@ def get_user_information(code):
 
 
 def get_tasks(group: Group) -> list[Task]:
-    return group.tasks.all()
+    return group.tasks.all() if group else []
 
 def get_groups():
     return Group.objects.all()
