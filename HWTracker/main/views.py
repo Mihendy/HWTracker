@@ -35,7 +35,10 @@ def student(request):
     
     if username is None:
         return redirect('/')
-    tasks = get_tasks(user.group)
+    if is_editor:
+        tasks = Task.objects.all()
+    else:
+        tasks = get_tasks(user.group)
     return render(request, template_name,
                   {'first_name': first_name, 'last_name': last_name,
                    'tasks': tasks, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
