@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-<form class="block-of-subject" method="post">
+<form class="post-subject" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Создать">
+    <input type="submit" class="save-button" value="Создать">
 </form>
 </body>
 </html>

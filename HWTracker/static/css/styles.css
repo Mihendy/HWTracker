@@ -240,7 +240,7 @@ h1 {
   position: relative;
   left: 10px;
   right: 10px;
-  width: calc(100% - 10px);
+  width: calc(99% - 10px);
   height: auto;
   word-wrap: break-word;
   font-family: 'Franklin Gothic Medium';
@@ -251,8 +251,9 @@ h1 {
 }
 
 .date {
-  position: relative;
-  top: 110px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
   max-width: calc(100% - 10px);
   font-family: 'Franklin Gothic Medium';
   font-size: 18px;
@@ -303,4 +304,96 @@ h1 {
 
 .add-button:hover img {
   opacity: 0.7;
+}
+
+
+/*поле заполнения */
+.post-subject {
+  position: relative;
+  align-items: center;
+  width: 520px;
+  height: 450px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-size: 34px;
+  font-weight: 600;
+  padding-left: 8px;
+}
+
+.field-of-subject{
+  position: relative;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  height: 30px;
+  width: 330px;
+  left: 19px;
+  font-size: 24px;
+  bottom: 4px;
+  margin-bottom: -2%;
+}
+
+.field-of-topic{
+  position: relative;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  bottom: 4px;
+  height: 35px;
+  left: 98px;
+  width: 330px;
+  font-size: 18px;
+  margin-bottom: -2%;
+}
+
+.field-of-description{
+  position: relative;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  height: 130px;
+  width: 330px;
+  bottom: 8px;
+  font-size: 24px;
+  vertical-align: top;
+  resize: none;
+  margin-bottom: -3%;
+}
+
+.field-of-due_date{
+  position: relative;
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  height: 30px;
+  width: 330px;
+  left: 19px;
+  font-size: 24px;
+  bottom: 4px;
+}
+
+.save-button {
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 60px;
+  left: 160px;
+  bottom: 25px;
+  background: #6A6A6A;
+  border-radius: 12px;
+  padding: 19px 54px;
+  font-family: 'Franklin Gothic Medium';
+  font-style: normal;
+  font-size: 34px;
+  line-height: 89%;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.save-button:hover {
+  background-color: gray;
 }
