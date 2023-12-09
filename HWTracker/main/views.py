@@ -70,13 +70,10 @@ def handle_auth(request):
     decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
     email = decoded['email']
     first_name = decoded['given_name']
-    print(first_name)
-    last_name = decoded.get('family_name')
-    print(first_name)
-    print(last_name)
+    last_name = decoded.get('family_name') or ""
     name = email.split("@")[0]
     request.session['username'], request.session['email'] = name, email
-    user, created = User.objects.get_or_create(username=name,
+    user, _ = User.objects.get_or_create(username=name,
                                                email=email,
                                                first_name=first_name,
                                                last_name=last_name)
