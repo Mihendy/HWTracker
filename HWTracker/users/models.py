@@ -6,7 +6,7 @@ from main.models import Group
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=150, blank=True, null=True)
-    last_name = models.CharField(max_length=150, blank=True, null=True)
+    last_name = models.CharField(max_length=150, blank=True, null=False)
     email = models.EmailField(blank=False, null=False)
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
     is_editor = models.BooleanField(default=False)

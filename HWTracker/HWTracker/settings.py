@@ -32,8 +32,6 @@ ALLOWED_HOSTS = ['*']
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
 # Application definition
 
 INSTALLED_APPS = [

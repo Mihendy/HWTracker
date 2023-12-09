@@ -70,14 +70,14 @@ def handle_auth(request):
     data = get_user_information(code)
     decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
     email = decoded['email']
+    first_name = decoded['given_name']
+    last_name = decoded.get('family_name') or ""
     name = email.split("@")[0]
     request.session['username'], request.session['email'] = name, email
-    for key, value in decoded.items():
-        print('{} => {}'.format(key, value))
-    user, created = User.objects.get_or_create(username=name,
+    user, _ = User.objects.get_or_create(username=name,
                                                email=email,
-                                               first_name=decoded['given_name'],
-                                               last_name=decoded.get('family_name') or "")
+                                               first_name=first_name,
+                                               last_name=last_name)
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     return redirect('student')
 
