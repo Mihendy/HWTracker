@@ -48,6 +48,7 @@ body {
 .tg-button:hover img {
   z-index: 3;
   opacity: 0.7;
+  cursor: pointer;
 }
 
 /* .top-bar {
@@ -298,15 +299,16 @@ h1 {
   padding: 93px;
   margin: 1rem;
 }
-
-.add-button:hover img {
-  opacity: 0.7;
-}
-
 .add-button img {
   width: 100px;
   height: 100px;
 }
+
+.add-button:hover img {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
 
 
 /* поле заполнения
@@ -400,6 +402,16 @@ h1 {
   background-color: gray;
 } */
 
-.completed-homework {
-  background-color:#212529;
+
+.selectable-card:hover {
+  cursor: pointer; /* Добавьте этот стиль, чтобы курсор менялся при наведении на карточку */
+}
+
+.selected-card {
+  background-color: #888888 !important; /* Серый цвет для выбранной карточки */
+  color: #000000 !important; /* Цвет текста на выбранной карточке */
+}
+
+body {
+  user-select: none; /* Запрет выделения для всех остальных браузеров */
 }

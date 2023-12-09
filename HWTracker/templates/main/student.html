@@ -34,7 +34,7 @@
 
     <div class="grid-container">
         {% for task in tasks %}
-            <div class="card border-dark mb-3 completed-homework" style="width: 18rem; height: 18rem; margin: 1rem;">
+            <div class="card border-dark mb-3 selectable-card" style="width: 18rem; height: 18rem; margin: 1rem;">
                 <div class="card-header" style="font-weight: 800">{{ task.subject }}</div>
                 <div class="card-body">
                     <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
@@ -49,5 +49,17 @@
             </div>
         {% endif %}
     </div>
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+        var selectableCards = document.querySelectorAll('.selectable-card');
+
+        selectableCards.forEach(function (card) {
+            card.addEventListener('click', function () {
+                // Добавьте класс к текущей карточке
+                card.classList.toggle('selected-card');
+            });
+        });
+    });
+    </script>
 </body>
 </html>
