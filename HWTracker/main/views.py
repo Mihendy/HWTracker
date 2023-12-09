@@ -52,10 +52,11 @@ def add_task_form(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
+            group = Group.objects.get(id=form.cleaned_data["group"])
             new_task = Task(subject=form.cleaned_data["subject"],
                             topic=form.cleaned_data["topic"],
                             description=form.cleaned_data["description"],
-                            due_date=form.cleaned_data["due_date"])
+                            due_date=form.cleaned_data["due_date"], group=group)
             new_task.save()
             return redirect("/student")
     else:
