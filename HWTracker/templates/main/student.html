@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} HWTracker {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="shortcut icon" href="{%  static 'img/favicon.ico' %}">
 </head>
 
@@ -27,13 +28,13 @@
 </div>
 <div class="grid-container">
     {% for task in tasks %}
-        <div class="block-of-subject">
-            <div class="name-of-subject">
-                <div class="text-subject">{{ task.subject }}</div>
+        <div class="card border-dark mb-3" style="width: 18rem; height: 18rem;">
+            <div class="card-header">{{ task.subject }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ task.topic }}</h5>
+                <p class="card-text">{{ task.description }}</p>
+                <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
             </div>
-            <div class="theme">{{ task.topic }}</div>
-            <div class="homework">{{ task.description }}</div>
-            <div class="date">{{ task.due_date|date:"d.m.y H:i" }}</div>
         </div>
     {% endfor %}
     {% if is_editor %}

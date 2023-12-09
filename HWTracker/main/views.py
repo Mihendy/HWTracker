@@ -99,8 +99,8 @@ def get_user_information(code):
 
 
 def get_tasks(group: Group) -> list[Task]:
-    return group.tasks.all() if group else []
+    return list(group.tasks.all()) if group else []
 
 
-def get_groups():
-    return Group.objects.all()
+def get_groups() -> list[Group]:
+    return list(Group.objects.all())

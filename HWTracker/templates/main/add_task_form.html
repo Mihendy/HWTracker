@@ -12,25 +12,38 @@
 <body>
 <form method="post">
     {% csrf_token %}
+    {#    <div class="alert alert-danger" role="alert">#}
     {{ form.subject.errors }}
+    {#    </div>#}
+    <div class="input-group mb-3">
+        <span class="input-group-text">Группа</span>
+        {{ form.group }}
+    </div>
+
     <div class="input-group mb-3">
         <span class="input-group-text">Предмет</span>
         {{ form.subject }}
     </div>
 
+    {#    <div class="alert alert-danger" role="alert">#}
     {{ form.topic.errors }}
+    {#    </div>#}
     <div class="input-group mb-3">
         <span class="input-group-text">Тема</span>
         {{ form.topic }}
     </div>
 
+    {#    <div class="alert alert-danger" role="alert">#}
     {{ form.description.errors }}
+    {#    </div>#}
     <div class="input-group mb-3">
         <span class="input-group-text">Описание</span>
         {{ form.description }}
     </div>
 
+    {#    <div class="alert alert-danger" role="alert">#}
     {{ form.due_date.errors }}
+    {#    </div>#}
     <div class="input-group mb-3">
         <span class="input-group-text">Сдать до</span>
         {{ form.due_date }}
