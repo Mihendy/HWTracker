@@ -12,10 +12,10 @@ def get_choices():
 class TaskForm(forms.Form):
     group = forms.ChoiceField(label='Группа', choices=get_choices,
                               widget=forms.Select(attrs={'class': 'form-control'}))
-    subject = forms.CharField(label='Предмет', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    topic = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    subject = forms.CharField(label='Предмет', widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=45)
+    topic = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class': 'form-control'}), max_length=45)
     description = forms.CharField(label='Описание', widget=forms.Textarea(
-        attrs={'class': 'form-control', 'rows': 3, "id": "TextArea", "style": "resize: none;"}), max_length=150)
+        attrs={'class': 'form-control', 'rows': 3, "id": "TextArea", "style": "resize: none;"}), max_length=130)
     due_date = forms.CharField(
         widget=forms.TextInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
         label='Сдать до', )

@@ -27,7 +27,7 @@ body {
   margin-top: 0px;
 }
 
-.logo-1 {
+/* .logo-1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -35,19 +35,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.tg {
-  z-index: 3;
-  width: 100px;
-  height: 100px;
-}
 
 .tg-button {
   z-index: 3;
-  position: fixed;
-  bottom: 40px;
-  right: 50px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
 }
 
 .tg-button:hover img {
@@ -55,7 +50,7 @@ body {
   opacity: 0.7;
 }
 
-.top-bar {
+/* .top-bar {
   position: fixed;
   top: 0;
   left: 0;
@@ -63,7 +58,7 @@ body {
   width: 100%;
   height: 150px;
   background-color: rgb(196, 196, 196);
-}
+} */
 
 h1 {
   font-family: 'Franklin Gothic Medium';
@@ -105,7 +100,7 @@ h1 {
   color: #FFFFFF;
   text-decoration: none;
 }
-/*кнопка выхода*/
+/* кнопка выхода
 .exit-button-container {
   position: fixed;
   z-index: 1;
@@ -134,7 +129,7 @@ h1 {
   text-align: center;
   color: #FFFFFF;
   text-decoration: none;
-}
+} */
 
 /*курс*/
 .box-course {
@@ -254,7 +249,7 @@ h1 {
 
 .date {
   position: absolute;
-  bottom: 10px;
+  bottom: -10px;
   right: 10px;
   max-width: calc(100% - 10px);
   font-family: 'Franklin Gothic Medium';
@@ -294,22 +289,27 @@ h1 {
 
 /*кнопка */
 .add-button {
-  width: 100px;
-  height: 100px;
+  height: 290px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px dashed #000;
   border-radius: 12px;
-  padding: 74px 148px;
+  padding: 93px;
+  margin: 1rem;
 }
 
 .add-button:hover img {
   opacity: 0.7;
 }
 
+.add-button img {
+  width: 100px;
+  height: 100px;
+}
 
-/*поле заполнения */
+
+/* поле заполнения
 .post-subject {
   position: relative;
   align-items: center;
@@ -398,4 +398,8 @@ h1 {
 
 .save-button:hover {
   background-color: gray;
+} */
+
+.completed-homework {
+  background-color:#212529;
 }
