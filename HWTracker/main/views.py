@@ -43,8 +43,11 @@ def student(request):
     else:
         tasks = get_tasks(user.group)
     data = get_task_separated_by_date(tasks)
+    for task in tasks:
+        task.is_completed = task.is_completed_by_user(user)
+
     return render(request, template_name,
-                  {'first_name': first_name, 'last_name': last_name,
+                  {'first_name': first_name, 'last_name': last_name, 'user': request.user,
                    'data': data, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
 
 
