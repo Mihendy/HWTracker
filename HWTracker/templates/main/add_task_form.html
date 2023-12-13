@@ -10,43 +10,51 @@
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 </head>
 <body>
-<form method="post">
+<form method="post" class="needs-validation" novalidate>
     {% csrf_token %}
-    {#    <div class="alert alert-danger" role="alert">#}
-    {{ form.subject.errors }}
-    {#    </div>#}
     <div class="input-group mb-3">
         <span class="input-group-text">Группа</span>
         {{ form.group }}
+        <div class="invalid-feedback">
+            {{ form.group.errors }}
+        </div>
     </div>
+
+
 
     <div class="input-group mb-3">
         <span class="input-group-text">Предмет</span>
         {{ form.subject }}
+        <div class="invalid-feedback">
+            {{ form.subject.errors }}
+        </div>
     </div>
 
-    {#    <div class="alert alert-danger" role="alert">#}
-    {{ form.topic.errors }}
-    {#    </div>#}
     <div class="input-group mb-3">
         <span class="input-group-text">Тема</span>
         {{ form.topic }}
+        <div class="invalid-feedback">
+            {{ form.topic.errors }}
+        </div>
     </div>
 
-    {#    <div class="alert alert-danger" role="alert">#}
-    {{ form.description.errors }}
-    {#    </div>#}
+
     <div class="input-group mb-3">
         <span class="input-group-text">Описание</span>
         {{ form.description }}
+        <div class="invalid-feedback">
+            {{ form.description.errors }}
+        </div>
     </div>
 
-    {#    <div class="alert alert-danger" role="alert">#}
-    {{ form.due_date.errors }}
-    {#    </div>#}
+
+
     <div class="input-group mb-3">
         <span class="input-group-text">Сдать до</span>
         {{ form.due_date }}
+        <div class="invalid-feedback">
+            {{ form.due_date.errors }}
+        </div>
     </div>
 
     <div class="d-grid gap-2">
@@ -55,6 +63,7 @@
 </form>
 
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/validation.js' %}"></script>
 
 </body>
 </html>

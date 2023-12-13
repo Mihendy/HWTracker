@@ -28,14 +28,16 @@ def index(request):
 def student(request):
     template_name = 'main/student.html'
     username = request.session.get('username')
+
+    if username is None:
+        return redirect('/')
+
     user = request.user
     first_name = user.first_name
     last_name = user.last_name
     group = user.group
     is_editor = request.user.is_editor
 
-    if username is None:
-        return redirect('/')
     if is_editor:
         tasks = Task.objects.all()
     else:
@@ -47,6 +49,9 @@ def student(request):
 
 def add_task_form(request):
     template_name = 'main/add_task_form.html'
+    username = request.session.get('username')
+    if username is None:
+        return redirect('/')
     if not request.user.is_editor:
         return HttpResponseForbidden()
     if request.method == "POST":
@@ -75,9 +80,9 @@ def handle_auth(request):
     name = email.split("@")[0]
     request.session['username'], request.session['email'] = name, email
     user, _ = User.objects.get_or_create(username=name,
-                                               email=email,
-                                               first_name=first_name,
-                                               last_name=last_name)
+                                         email=email,
+                                         first_name=first_name,
+                                         last_name=last_name)
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     return redirect('student')
 
