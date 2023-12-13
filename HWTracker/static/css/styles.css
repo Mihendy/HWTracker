@@ -280,12 +280,8 @@ h1 {
 }
 
 .grid-container {
-    display: flex;
-    flex-flow: row wrap;
     position: absolute;
-    top: 180px;
-    left: 150px;
-    grid-gap: 10px;
+    top: 120px;
 }
 
 
@@ -311,18 +307,22 @@ h1 {
     cursor: pointer;
 }
 
+.replace {
+        display: none;
+    }
+
 @media (max-width: 768px) {
 
     .username {
         display: none;
     }
 
-    .group {
+    .nav-logo {
         display: none;
     }
 
-    .info-btn {
-        display: inline;
+    .replace {
+        display: block;
     }
 }
 
