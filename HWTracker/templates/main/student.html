@@ -11,55 +11,60 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
-        <a class="navbar-brand ml-4">
-            <img src="{% static 'img/logo.png' %}" alt="Logo" width="75" height="auto">
-        </a>
-
-        <a class="position-absolute" style="left: 6rem;">
-            <img src="{% static 'img/group.png' %}" alt="Group" width="25">
-        </a>
-
-        <div class="fw-bold position-absolute" style="left: 8rem; font-size: 20px; color: #ffffff;">{{ group }}</div>
-
-        <div class="fw-bold position-absolute" style="right: 12rem; font-size: 20px; color: #ffffff;">{{ first_name }} {{ last_name }}</div>    
-    
-        <a href="/logout" class="btn btn-light btn-lg position-absolute top-50 end-0 translate-middle-y me-4" style="width: 8rem; font-size: 26px" role="button">Выйти</a>
-    
-    </nav>
-    
-    <a class="tg-button">
-        <img src="{% static 'img/tg.png' %}" alt="Telegram">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
+    <a class="navbar-brand ml-4">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" width="75" height="auto">
     </a>
 
-    <div class="grid-container">
-        {% for task in tasks %}
-            <div class="card border-dark mb-3 selectable-card" style="width: 18rem; height: 18rem; margin: 1rem;">
-                <div class="card-header" style="font-weight: 800">{{ task.subject }}</div>
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
-                    <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
-                    <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
-                </div>
+    <a class="position-absolute group" style="left: 6rem;">
+        <img style="filter: invert(1)" src="{% static 'img/group.png' %}" alt="Group" width="25">
+    </a>
+
+    <div class="fw-bold position-absolute group" style="left: 8rem; font-size: 20px; color: #ffffff;">{{ group }}</div>
+
+    <div class="fw-bold position-absolute username"
+         style="right: 12rem; font-size: 20px; color: #ffffff;">{{ first_name }} {{ last_name }}</div>
+
+    <a href="/logout" class="btn btn-light btn-lg position-absolute top-50 end-0 translate-middle-y me-4"
+       style="width: 8rem; font-size: 26px" role="button">Выйти</a>
+</nav>
+
+<a class="tg-button">
+    <img src="{% static 'img/tg.png' %}" alt="Telegram">
+</a>
+
+<div class="grid-container">
+    {% for task in tasks %}
+        <div class="card border-dark mb-3 selectable-card" style="width: 18rem; height: 18rem; margin: 1rem;">
+            <div class="card-header" style="font-weight: 800">{{ task.subject }}</div>
+            <div class="card-body">
+                <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
+                <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
+                <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
             </div>
-        {% endfor %}
-        {% if is_editor %}
-            <div class="add-button" onclick="window.location.href = '/taskform'" ;>
-                <img src="{% static 'img/add-button.png' %}" alt="AddButton">
-            </div>
-        {% endif %}
-    </div>
-    <script>
-            document.addEventListener("DOMContentLoaded", function () {
+        </div>
+    {% endfor %}
+    {% if is_editor %}
+        <div class="add-button" onclick="window.location.href = '/taskform'" ;>
+            <img src="{% static 'img/add-button.png' %}" alt="AddButton">
+        </div>
+    {% endif %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         var selectableCards = document.querySelectorAll('.selectable-card');
 
         selectableCards.forEach(function (card) {
             card.addEventListener('click', function () {
-                // Добавьте класс к текущей карточке
                 card.classList.toggle('selected-card');
             });
         });
     });
-    </script>
+
+    document.getElementById('info-btn').addEventListener('click', function () {
+        document.querySelector('.username').style.display = 'inline-block';
+        document.querySelector('.group').style.display = 'inline-block';
+    });
+</script>
 </body>
 </html>

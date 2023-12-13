@@ -309,6 +309,23 @@ h1 {
   cursor: pointer;
 }
 
+@media (max-width: 768px) {
+  #info-btn {
+    display: block;
+    left: 8rem;
+    top: 0.5rem;
+    transform: translateX(-50%);
+  }
+
+  .username {
+    display: none;
+  }
+
+  .group {
+    display: none;
+  }
+}
+
 
 
 /* поле заполнения
