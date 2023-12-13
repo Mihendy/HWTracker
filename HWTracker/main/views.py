@@ -42,9 +42,10 @@ def student(request):
         tasks = Task.objects.all()
     else:
         tasks = get_tasks(user.group)
+    data = get_task_separated_by_date(tasks)
     return render(request, template_name,
                   {'first_name': first_name, 'last_name': last_name,
-                   'tasks': tasks, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
+                   'data': data, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
 
 
 def add_task_form(request):
@@ -90,6 +91,16 @@ def handle_auth(request):
 def logout(request):
     request.session.flush()
     return redirect('/')
+
+
+def get_task_separated_by_date(tasks: list[Task]) -> dict[str, list[Task]]:
+    out = dict()
+    for task in tasks:
+        date = task.due_date.date()
+        if date not in out:
+            out[date] = []
+        out[date].append(task)
+    return out
 
 
 def get_user_information(code):

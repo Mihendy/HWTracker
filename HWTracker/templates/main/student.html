@@ -47,21 +47,30 @@
     <img src="{% static 'img/tg.png' %}" alt="Telegram">
 </a>
 
-<div class="d-flex align-content-start flex-wrap grid-container">
-    {% for task in tasks %}
-        <div class="card border-dark mb-3 selectable-card" style="width: 18rem; height: 18rem; margin: 1rem;">
-            <div class="card-header" style="font-weight: 800">{{ task.subject }}</div>
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
-                <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
-                <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
+<div class="d-flex flex-column grid-container p-3 w-100">
+    {% for date, tasks in data.items %}
+        <div class="d-flex">
+            <div>{{ date|date:"d.m.Y" }}</div>
+            <div class="d-flex flex-wrap">
+                {% for task in tasks %}
+                    <div class="card border-dark mb-3 selectable-card"
+                         style="width: 18rem; height: 18rem; margin: 1rem;">
+                        <div class="card-header" style="font-weight: 800">{{ task.subject }}</div>
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
+                            <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
+                            <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     {% endfor %}
+
     {% if is_editor %}
-        <div class="add-button" onclick="window.location.href = '/taskform'" ;>
+        <a href="/taskform" class="add-button">
             <img src="{% static 'img/add-button.png' %}" alt="AddButton">
-        </div>
+        </a>
     {% endif %}
 </div>
 <script>
