@@ -11,23 +11,29 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
-    <a class="navbar-brand ml-4">
-        <img src="{% static 'img/logo.png' %}" alt="Logo" width="75" height="auto">
-    </a>
+<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-top">
+    <div class="container-fluid">
 
-    <a class="position-absolute group" style="left: 6rem;">
-        <img style="filter: invert(1)" src="{% static 'img/group.png' %}" alt="Group" width="25">
-    </a>
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="75" height="auto">
+            </a>
+            <div class="group p-2">
+                <img style="filter: invert(1)" src="{% static 'img/group.png' %}" alt="Group" width="25">
+            </div>
+            <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">{{ group }}</div>
+        </div>
 
-    <div class="fw-bold position-absolute group" style="left: 8rem; font-size: 20px; color: #ffffff;">{{ group }}</div>
+        <div class="d-flex align-items-center">
+            <div class="fw-bold username p-2"
+                 style="font-size: 20px; color: #ffffff;">{{ first_name }} {{ last_name }}</div>
 
-    <div class="fw-bold position-absolute username"
-         style="right: 12rem; font-size: 20px; color: #ffffff;">{{ first_name }} {{ last_name }}</div>
+            <a href="/logout" class="btn btn-light btn-lg" style="font-size: 26px" role="button">Выйти</a>
+        </div>
 
-    <a href="/logout" class="btn btn-light btn-lg position-absolute top-50 end-0 translate-middle-y me-4"
-       style="width: 8rem; font-size: 26px" role="button">Выйти</a>
+    </div>
 </nav>
+
 
 <a class="tg-button">
     <img src="{% static 'img/tg.png' %}" alt="Telegram">
