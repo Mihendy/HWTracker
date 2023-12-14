@@ -1,4 +1,5 @@
 {% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,8 +54,8 @@
             <div>{{ date|date:"d.m.Y" }}</div>
             <div class="d-flex flex-wrap">
                 {% for task in tasks %}
-                    <div {% if task.is_completed %}class="card border-dark mb-3 selectable-card selected-card"{% else %}class="card border-dark mb-3 selectable-card"{% endif %}
-                    onclick="checkTask('{{ task.id }}', '{{ task.is_completed }}');"
+                    <div {% if task.status == "completed" %}class="card border-dark mb-3 selectable-card selected-card"{% else %}class="card border-dark mb-3 selectable-card"{% endif %}
+                    onclick="checkTask(this, '{{ task.id }}', '{{ task.status }}', '{{ user.id }}');"
                          style="width: 18rem; height: 18rem; margin: 1rem;">
                         <div class="card-header" style="font-weight: 800">{{ task.subject }}</div>
                         <div class="card-body">

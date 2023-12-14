@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 import requests
+import json
 from urllib.parse import urlparse, parse_qs
 import jwt
 from .models import Task, Group
@@ -7,7 +8,7 @@ from .forms import TaskForm
 # noinspection PyUnresolvedReferences
 from users.models import User
 from django.contrib.auth import login
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 
 CLIENT_ID = '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com'
 
@@ -23,6 +24,37 @@ def index(request):
         return render(request, template_name, {'client_id': CLIENT_ID,
                                                'redirect_uri': REDIRECT_URI})
     return redirect('student')
+
+
+def check_task(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        task_id = data.get('task_id')
+        user_id = data.get('user_id')
+        status = data.get('status')
+        print(task_id, user_id, status)
+        if task_id is None or user_id is None or status is None:
+            return JsonResponse({'success': False})
+        task = Task.objects.get(id=task_id)
+        user = User.objects.get(id=user_id)
+        
+        try:
+            if status == 'incompleted':
+                print(f"adding {user} to {task}")
+                task.status = 'completed'
+                task.completed_by.add(user)
+
+            else:
+                print(f"removing {user} from {task}")
+                task.status = 'incompleted'
+                task.completed_by.remove(user)
+            task.save()
+        except Task.DoesNotExist:
+            print(f'task {task} does not exist')
+        except User.DoesNotExist:
+            print(f'user {user} does not exist')
+
+        return JsonResponse({'success': True})
 
 
 def student(request):
@@ -44,7 +76,7 @@ def student(request):
         tasks = get_tasks(user.group)
     data = get_task_separated_by_date(tasks)
     for task in tasks:
-        task.is_completed = task.is_completed_by_user(user)
+        task.status = 'completed' if task.is_completed_by_user(user) else 'incompleted'
 
     return render(request, template_name,
                   {'first_name': first_name, 'last_name': last_name, 'user': request.user,
