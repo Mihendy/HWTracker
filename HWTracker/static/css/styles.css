@@ -260,6 +260,20 @@ h1 {
     color: #212529;
 }
 
+
+.task-group {
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    max-width: calc(100% - 10px);
+    font-family: 'Franklin Gothic Medium';
+    font-size: 18px;
+    line-height: 24px;
+    text-align: right;
+    color: #212529;
+}
+
+
 /*конец блок*/
 
 .text-container {
