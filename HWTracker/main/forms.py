@@ -1,8 +1,8 @@
 from datetime import datetime
-from django.db import connection
+
 from django import forms
 
-from .models import Task, Group
+from .models import Group, Task
 
 
 def get_choices():
