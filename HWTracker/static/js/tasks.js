@@ -30,3 +30,7 @@ async function checkTask(element, task_id, status, user_id) {
         throw error
     }
 }
+
+function deleteTaskBlock(taskId) {
+    // код для удаления блока по taskId
+}
