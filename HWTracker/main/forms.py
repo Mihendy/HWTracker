@@ -20,7 +20,8 @@ class TaskForm(forms.Form):
     other_group = forms.CharField(
         label='Другая группа',
         widget=forms.TextInput(
-            attrs={'class': 'form-control', 'autocomplete': 'off', 'id': 'otherGroupInput'}
+            attrs={'class': 'form-control', 'autocomplete': 'off', 'id': 'otherGroupInput',
+                   'placeholder': 'Название'}
         ),
         max_length=45,
         required=False,
