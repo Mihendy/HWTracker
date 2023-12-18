@@ -27,13 +27,18 @@ body {
     margin-top: 0px;
 }
 
+body > form {
+    width: 60vw;
+    max-width: 600px;
+}
+
 /* .logo-1 {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
   display: flex;
-  align-items: center;
+  align-items: center;s
   justify-content: center;
 } */
 
@@ -322,8 +327,8 @@ h1 {
 }
 
 .replace {
-        display: none;
-    }
+    display: none;
+}
 
 @media (max-width: 768px) {
 

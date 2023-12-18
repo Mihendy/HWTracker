@@ -26,12 +26,12 @@
                 <div class="d-flex flex-row align-items-center">
                     {% if is_editor %}
                         <div class="group p-2">
-                            <img style="filter: invert(1)" src="{% static 'img/editor.png' %}" alt="Editor" width="25">
+                            <img style="filter: invert(1)" src="{% static 'img/edit.svg' %}" alt="Editor" width="25">
                         </div>
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">Редактор</div>
                     {% else %}
                         <div class="group p-2">
-                            <img style="filter: invert(1)" src="{% static 'img/group.png' %}" alt="Group" width="25">
+                            <img style="filter: invert(1)" src="{% static 'img/group.svg' %}" alt="Group" width="25">
                         </div>
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">{{ group }}</div>
                     {% endif %}
@@ -59,8 +59,8 @@
     {% if is_editor %}
         <div class="d-flex">
             <div>00.00.0000</div>
-            <a href="/taskform" class="add-button", style="width: 18rem; height: 18rem; margin: 1rem;">
-                <img src="{% static 'img/add-button.png' %}" alt="AddButton">
+            <a href="/taskform" class="add-button" style="width: 18rem; height: 18rem; margin: 1rem;">
+                <img src="{% static 'img/add-button.svg' %}" alt="AddButton">
             </a>
         </div>
     {% endif %}

@@ -97,13 +97,28 @@ def add_task_form(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
-            group = Group.objects.get(id=form.cleaned_data["group"])
+            _id = form.cleaned_data["group"]
+            if _id == 'other':
+                new_group = Group(name=form.cleaned_data["other_group"])
+                new_group.save()
+                _id = new_group.pk
+            group = Group.objects.get(id=_id)
             new_task = Task(subject=form.cleaned_data["subject"],
                             topic=form.cleaned_data["topic"],
                             description=form.cleaned_data["description"],
                             due_date=form.cleaned_data["due_date"], group=group)
             new_task.save()
             return redirect("/student")
+        else:
+            out = {}
+            errs = form.errors.as_data()
+            for field_name, errors in errs.items():
+                label = form.fields[field_name].label or field_name
+                if label not in out:
+                    out[label] = []
+                out[label] += [error.messages[0] for error in errors]
+
+            return render(request, template_name, {"form": form, "form_errors": out})
     else:
         form = TaskForm()
 
