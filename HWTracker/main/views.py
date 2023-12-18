@@ -30,35 +30,41 @@ def index(request):
     return redirect('student')
 
 
-def check_task(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        task_id = data.get('task_id')
-        user_id = data.get('user_id')
-        status = data.get('status')
-        # print(task_id, user_id, status)
-        if task_id is None or user_id is None or status is None:
-            return JsonResponse({'success': False})
+def delete_task(request):
+    data = json.loads(request.body)
+    task_id = data.get('task_id')
+    try:
         task = Task.objects.get(id=task_id)
-        user = User.objects.get(id=user_id)
+        task.delete()
+    except Task.DoesNotExist:
+        return JsonResponse({'success': False})
 
-        try:
-            if status == 'incompleted':
-                # print(f"adding {user} to {task}")
-                task.status = 'completed'
-                task.completed_by.add(user)
 
-            else:
-                # print(f"removing {user} from {task}")
-                task.status = 'incompleted'
-                task.completed_by.remove(user)
-            task.save()
-        except Task.DoesNotExist:
-            print(f'task {task} does not exist')
-        except User.DoesNotExist:
-            print(f'user {user} does not exist')
 
-        return JsonResponse({'success': True})
+    return JsonResponse({'success': True})
+
+def check_task(request):
+    data = json.loads(request.body)
+    task_id = data.get('task_id')
+    user_id = data.get('user_id')
+    status = data.get('status')
+    if task_id is None or user_id is None or status is None:
+        return JsonResponse({'success': False})
+    task = Task.objects.get(id=task_id)
+    user = User.objects.get(id=user_id)
+    try:
+        if status == 'incompleted':
+            task.status = 'completed'
+            task.completed_by.add(user)
+        else:
+            task.status = 'incompleted'
+            task.completed_by.remove(user)
+        task.save()
+    except Task.DoesNotExist:
+        print(f'task {task} does not exist')
+    except User.DoesNotExist:
+        print(f'user {user} does not exist')
+    return JsonResponse({'success': True})
 
 
 def student(request):

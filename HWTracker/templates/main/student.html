@@ -68,10 +68,10 @@
             {% for task in tasks %}
                 <div {% if task.status == "completed" and not is_editor %}class="card border-dark mb-3 selectable-card selected-card"{% else %}class="card border-dark mb-3 selectable-card"{% endif %}
                 {% if not is_editor %} onclick="checkTask(this, '{{ task.id }}', '{{ task.status }}', '{{ user.id }}');" {% endif %}
-                     style="width: 18rem; height: 18rem; margin: 1rem; position: relative;">
+                     style="width: 18rem; height: 18rem; margin: 1rem; position: relative;" id="{{ task.id }}">
                      <div class="card-header" style="font-weight: 800; cursor: pointer; position: relative;">
                         {% if is_editor %}
-                            <span class="highlight">
+                            <span class="highlight" onclick="deleteTaskBlock('{{ task.id }}')">
                                 <span class="cross"></span>
                                 {{ task.subject }}
                             </span>
