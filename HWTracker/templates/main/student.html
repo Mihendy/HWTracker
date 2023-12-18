@@ -71,7 +71,7 @@
                      style="width: 18rem; height: 18rem; margin: 1rem; position: relative;" id="{{ task.id }}">
                      <div class="card-header" style="font-weight: 800; cursor: pointer; position: relative;">
                         {% if is_editor %}
-                            <span class="highlight" onclick="deleteTaskBlock('{{ task.id }}')">
+                            <span class="highlight_remove" onclick="deleteTaskBlock('{{ task.id }}')">
                                 <span class="cross"></span>
                                 {{ task.subject }}
                             </span>
@@ -80,10 +80,17 @@
                         {% endif %}
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
-                        <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
-                        <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
                         {% if is_editor %}
+                            <span class="highlight_edit" onclick="editTaskBlock('{{ task.id }}')">
+                                <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
+                                <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
+                                <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
+                                <p class="task-group">{{ task.group }}</p>
+                            </span>
+                        {% else %}
+                            <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
+                            <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
+                            <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
                             <p class="task-group">{{ task.group }}</p>
                         {% endif %}
                     </div>
