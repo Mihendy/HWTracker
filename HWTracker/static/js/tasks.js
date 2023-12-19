@@ -44,11 +44,12 @@ async function deleteTaskBlock(taskId) {
     if (data.success){
         const taskBlock = document.getElementById(taskId);
         const tasksBox = taskBlock.parentElement;
-        if (tasksBox.childElementCount == 1){
-            tasksBox.parentElement.children[0].remove();
+        // console.log(tasksBox)
+        if (tasksBox.childElementCount === 1){
+            tasksBox.parentElement.remove();
         }
         taskBlock.remove();
     }
-    console.log(data);
+    // console.log(data);
     return data;
 }
