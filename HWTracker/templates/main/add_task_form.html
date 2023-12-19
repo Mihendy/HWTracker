@@ -17,7 +17,7 @@
     {% csrf_token %}
 
     {% if form_errors %}
-        <div class="alert alert-danger">
+        <div class="shadow alert alert-danger">
             <ul>
                 {% for field, errors in form_errors.items %}
                     <li>{{ field }}:

@@ -4,7 +4,6 @@ from urllib.parse import parse_qs, urlparse
 import jwt
 import requests
 from django.contrib.auth import login
-from django.db.models import ProtectedError
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -39,9 +38,8 @@ def delete_task(request):
     except Task.DoesNotExist:
         return JsonResponse({'success': False})
 
-
-
     return JsonResponse({'success': True})
+
 
 def check_task(request):
     data = json.loads(request.body)

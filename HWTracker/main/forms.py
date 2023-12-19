@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from django import forms
-from django.core.validators import validate_slug
 
 from .models import Group, Task
+from .validators import validate_extended_slug
 
 
 def get_choices():
@@ -25,7 +25,7 @@ class TaskForm(forms.ModelForm):
         ),
         max_length=45,
         required=False,
-        validators=[validate_slug],
+        validators=[validate_extended_slug],
         error_messages={'invalid': 'Это поле может содержать только буквы, цифры, знаки подчеркивания и дефис'}
     )
 

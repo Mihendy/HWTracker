@@ -27,7 +27,8 @@
                 <div class="d-flex flex-row align-items-center">
                     {% if is_editor %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
-                            <i class="bi bi-pencil-square"></i>&nbsp;Редактор</div>
+                            <i class="bi bi-pencil-square"></i>&nbsp;Редактор
+                        </div>
                     {% else %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-people-fill"></i>&nbsp;{{ group }}</div>
@@ -52,53 +53,66 @@
     <img src="{% static 'img/tg.png' %}" alt="Telegram">
 </a>
 
-<div class="d-flex flex-column grid-container p-3 w-100">
+<div class="d-flex flex-column grid-container p-3 w-100 list-group list-group-flush">
     {% if is_editor %}
-        <div class="d-flex">
-            <div>00.00.0000</div>
+        <div class="d-flex list-group-item">
+            <div>
+                <h5><span class="badge bg-secondary shadow invisible">00.00.0000</span></h5>
+            </div>
             <a href="/taskform" class="add-button" style="width: 18rem; height: 18rem; margin: 1rem;">
                 <img src="{% static 'img/add-button.svg' %}" alt="AddButton">
             </a>
         </div>
     {% endif %}
     {% for date, tasks in data.items %}
-    <div class="d-flex">
-        <div>{{ date|date:"d.m.Y" }}</div>
-        <div class="d-flex flex-wrap">
-            {% for task in tasks %}
-                <div {% if task.status == "completed" and not is_editor %}class="card border-dark mb-3 selectable-card selected-card"{% else %}class="card border-dark mb-3 selectable-card"{% endif %}
-                {% if not is_editor %} onclick="checkTask(this, '{{ task.id }}', '{{ task.status }}', '{{ user.id }}');" {% endif %}
-                     style="width: 18rem; height: 18rem; margin: 1rem; position: relative;" id="{{ task.id }}">
-                     <div class="card-header" style="font-weight: 800; cursor: pointer; position: relative;">
-                        {% if is_editor %}
-                            <span class="highlight_remove" onclick="deleteTaskBlock('{{ task.id }}')">
-                                <span class="cross"></span>
+        <div class="d-flex list-group-item">
+            <div>
+                <h5><span class="badge bg-secondary shadow">{{ date|date:"d.m.Y" }}</span></h5>
+            </div>
+            <div class="d-flex flex-wrap">
+                {% for task in tasks %}
+                    <div {% if task.status == "completed" and not is_editor %}class="card border-dark mb-3 selectable-card selected-card"
+                         {% else %}class="card border-dark mb-3 selectable-card"{% endif %}
+                            {% if not is_editor %}
+                         onclick="checkTask(this, '{{ task.id }}', '{{ task.status }}', '{{ user.id }}');" {% endif %}
+                         style="width: 18rem; height: 18rem; margin: 1rem; position: relative;" id="{{ task.id }}">
+                        <div class="card-header" style="font-weight: 800; cursor: pointer;">
+                            {% if is_editor %}
+                                <span class="highlight_remove" onclick="deleteTaskBlock('{{ task.id }}')">
+                                    {{ task.subject }}
+                                </span>
+                            {% else %}
                                 {{ task.subject }}
-                            </span>
-                        {% else %}
-                            {{ task.subject }}
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        {% if is_editor %}
-                            <span class="highlight_edit" onclick="window.location.href='taskform/{{ task.id }}'">
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            {% if is_editor %}
+                                <a class="highlight_edit" href='/taskform/{{ task.id }}'>
+                                    <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
+                                    <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
+                                    <p class="date">
+                                        <i class="bi bi-clock-fill"></i>&nbsp;{{ task.due_date|date:"H:i" }}
+                                    </p>
+                                    <p class="task-group">
+                                        <i class="bi bi-people-fill"></i>&nbsp;{{ task.group }}
+                                    </p>
+                                </a>
+                            {% else %}
                                 <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
                                 <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
-                                <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
-                                <p class="task-group">{{ task.group }}</p>
-                            </span>
-                        {% else %}
-                            <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
-                            <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
-                            <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>
-                            <p class="task-group">{{ task.group }}</p>
-                        {% endif %}
+                                <p class="date">
+                                    <i class="bi bi-clock-fill"></i>&nbsp;{{ task.due_date|date:"H:i" }}
+                                </p>
+                                <p class="task-group">
+                                        <i class="bi bi-people-fill"></i>&nbsp;{{ task.group }}
+                                </p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-{% endfor %}
+    {% endfor %}
 </div>
 <script src="{% static 'js/tasks.js' %}"></script>
 </body>

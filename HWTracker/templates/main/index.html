@@ -11,11 +11,10 @@
 
 <body>
 <div class="header">
-    <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
+    <img src="{% static 'img/logo.svg' %}" alt="Logo" class="logo">
     <h1>HW Tracker</h1>
 </div>
 <div class="button-container">
-    {#TODO: добавить блоки#}
     <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ client_id }}&scope=openid%20profile%20email&redirect_uri={{ redirect_uri }}&state=test123&nonce=123"
        class="login-button">Войти</a>
 </div>
