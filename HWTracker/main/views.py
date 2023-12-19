@@ -156,7 +156,7 @@ def group_detail(request, name):
     # template_name = 'group_detail.html'
     #
     # return render(request, template_name, {'name': name})
-    pass
+    return HttpResponseForbidden()
 
 
 def handle_auth(request):
