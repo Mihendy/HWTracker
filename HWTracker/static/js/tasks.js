@@ -52,7 +52,3 @@ async function deleteTaskBlock(taskId) {
     console.log(data);
     return data;
 }
-
-async function editTaskBlock(taskId){
-    // TODO
-}

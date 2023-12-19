@@ -81,7 +81,7 @@
                     </div>
                     <div class="card-body">
                         {% if is_editor %}
-                            <span class="highlight_edit" onclick="editTaskBlock('{{ task.id }}')">
+                            <span class="highlight_edit" onclick="window.location.href='taskform/{{ task.id }}'">
                                 <h5 class="card-title" style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
                                 <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
                                 <p class="date">{{ task.due_date|date:"d.m.y H:i" }}</p>

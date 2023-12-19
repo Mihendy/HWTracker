@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('', views.index, name='index'),
     path('taskform', views.add_task_form, name='taskform'),
+    path('taskform/<int:task_id>/', views.add_task_form, name='edit_task_form'),
     path('checktask/', views.check_task, name='checktask'),
     path('deletetask/', views.delete_task, name='deletetask')
 ]

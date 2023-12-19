@@ -93,15 +93,27 @@ def student(request):
                    'data': data, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
 
 
-def add_task_form(request):
+from django.shortcuts import get_object_or_404
+
+def add_task_form(request, task_id=None):
     template_name = 'main/add_task_form.html'
     username = request.session.get('username')
+    
     if username is None:
         return redirect('/')
+    
     if not request.user.is_editor:
         return HttpResponseForbidden()
+
+    if task_id:
+        # Editing an existing task
+        task = get_object_or_404(Task, id=task_id)
+        form = TaskForm(request.POST or None, instance=task)
+    else:
+        # Creating a new task
+        form = TaskForm(request.POST or None)
+
     if request.method == "POST":
-        form = TaskForm(request.POST)
         if form.is_valid():
             _id = form.cleaned_data["group"]
             if _id == 'other':
@@ -109,11 +121,24 @@ def add_task_form(request):
                 new_group.save()
                 _id = new_group.pk
             group = Group.objects.get(id=_id)
-            new_task = Task(subject=form.cleaned_data["subject"],
-                            topic=form.cleaned_data["topic"],
-                            description=form.cleaned_data["description"],
-                            due_date=form.cleaned_data["due_date"], group=group)
-            new_task.save()
+
+            if task_id:
+                task.subject = form.cleaned_data["subject"]
+                task.topic = form.cleaned_data["topic"]
+                task.description = form.cleaned_data["description"]
+                task.due_date = form.cleaned_data["due_date"]
+                task.group = group
+                task.save()
+            else:
+                new_task = Task(
+                    subject=form.cleaned_data["subject"],
+                    topic=form.cleaned_data["topic"],
+                    description=form.cleaned_data["description"],
+                    due_date=form.cleaned_data["due_date"],
+                    group=group
+                )
+                new_task.save()
+
             return redirect("/student")
         else:
             out = {}
@@ -125,10 +150,9 @@ def add_task_form(request):
                 out[label] += [error.messages[0] for error in errors]
 
             return render(request, template_name, {"form": form, "form_errors": out})
-    else:
-        form = TaskForm()
-
+    
     return render(request, template_name, {"form": form})
+
 
 
 def handle_auth(request):
