@@ -125,6 +125,13 @@ def add_task_form(request):
     return render(request, template_name, {"form": form})
 
 
+def group_detail(request, name):
+    # template_name = 'group_detail.html'
+    #
+    # return render(request, template_name, {'name': name})
+    pass
+
+
 def handle_auth(request):
     code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]
     data = get_user_information(code)
