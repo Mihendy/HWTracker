@@ -10,11 +10,11 @@ def get_choices():
     return [(group.id, group.name) for group in Group.objects.all()] + [('other', 'Другая группа...')]
 
 
-class TaskForm(forms.Form):
+class TaskForm(forms.ModelForm):
     group = forms.ChoiceField(
         label='Группа',
         choices=get_choices,
-        widget=forms.Select(attrs={'class': 'form-control', 'onchange': 'showOtherField(this)', 'id': 'groupInput'})
+        widget=forms.Select(attrs={'class': 'form-control', 'onchange': 'showOtherField(this)', 'id': 'groupInput'}),
     )
 
     other_group = forms.CharField(
@@ -56,3 +56,8 @@ class TaskForm(forms.Form):
     class Meta:
         model = Task
         fields = ['subject', 'topic', 'description', 'due_date']
+
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        if kwargs.get('instance'):
+            self.fields['group'].initial = kwargs['instance'].group_id

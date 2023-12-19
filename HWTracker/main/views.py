@@ -6,7 +6,7 @@ import requests
 from django.contrib.auth import login
 from django.db.models import ProtectedError
 from django.http import HttpResponseForbidden, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 # noinspection PyUnresolvedReferences
 from users.models import User
@@ -30,35 +30,41 @@ def index(request):
     return redirect('student')
 
 
-def check_task(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        task_id = data.get('task_id')
-        user_id = data.get('user_id')
-        status = data.get('status')
-        # print(task_id, user_id, status)
-        if task_id is None or user_id is None or status is None:
-            return JsonResponse({'success': False})
+def delete_task(request):
+    data = json.loads(request.body)
+    task_id = data.get('task_id')
+    try:
         task = Task.objects.get(id=task_id)
-        user = User.objects.get(id=user_id)
+        task.delete()
+    except Task.DoesNotExist:
+        return JsonResponse({'success': False})
 
-        try:
-            if status == 'incompleted':
-                # print(f"adding {user} to {task}")
-                task.status = 'completed'
-                task.completed_by.add(user)
 
-            else:
-                # print(f"removing {user} from {task}")
-                task.status = 'incompleted'
-                task.completed_by.remove(user)
-            task.save()
-        except Task.DoesNotExist:
-            print(f'task {task} does not exist')
-        except User.DoesNotExist:
-            print(f'user {user} does not exist')
 
-        return JsonResponse({'success': True})
+    return JsonResponse({'success': True})
+
+def check_task(request):
+    data = json.loads(request.body)
+    task_id = data.get('task_id')
+    user_id = data.get('user_id')
+    status = data.get('status')
+    if task_id is None or user_id is None or status is None:
+        return JsonResponse({'success': False})
+    task = Task.objects.get(id=task_id)
+    user = User.objects.get(id=user_id)
+    try:
+        if status == 'incompleted':
+            task.status = 'completed'
+            task.completed_by.add(user)
+        else:
+            task.status = 'incompleted'
+            task.completed_by.remove(user)
+        task.save()
+    except Task.DoesNotExist:
+        print(f'task {task} does not exist')
+    except User.DoesNotExist:
+        print(f'user {user} does not exist')
+    return JsonResponse({'success': True})
 
 
 def student(request):
@@ -87,15 +93,25 @@ def student(request):
                    'data': data, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
 
 
-def add_task_form(request):
+def add_task_form(request, task_id=None):
     template_name = 'main/add_task_form.html'
     username = request.session.get('username')
+
     if username is None:
         return redirect('/')
+
     if not request.user.is_editor:
         return HttpResponseForbidden()
+
+    if task_id:
+        # Editing an existing task
+        task = get_object_or_404(Task, id=task_id)
+        form = TaskForm(request.POST or None, instance=task)
+    else:
+        # Creating a new task
+        form = TaskForm(request.POST or None)
+
     if request.method == "POST":
-        form = TaskForm(request.POST)
         if form.is_valid():
             _id = form.cleaned_data["group"]
             if _id == 'other':
@@ -103,11 +119,24 @@ def add_task_form(request):
                 new_group.save()
                 _id = new_group.pk
             group = Group.objects.get(id=_id)
-            new_task = Task(subject=form.cleaned_data["subject"],
-                            topic=form.cleaned_data["topic"],
-                            description=form.cleaned_data["description"],
-                            due_date=form.cleaned_data["due_date"], group=group)
-            new_task.save()
+
+            if task_id:
+                task.subject = form.cleaned_data["subject"]
+                task.topic = form.cleaned_data["topic"]
+                task.description = form.cleaned_data["description"]
+                task.due_date = form.cleaned_data["due_date"]
+                task.group = group
+                task.save()
+            else:
+                new_task = Task(
+                    subject=form.cleaned_data["subject"],
+                    topic=form.cleaned_data["topic"],
+                    description=form.cleaned_data["description"],
+                    due_date=form.cleaned_data["due_date"],
+                    group=group
+                )
+                new_task.save()
+
             return redirect("/student")
         else:
             out = {}
@@ -119,8 +148,6 @@ def add_task_form(request):
                 out[label] += [error.messages[0] for error in errors]
 
             return render(request, template_name, {"form": form, "form_errors": out})
-    else:
-        form = TaskForm()
 
     return render(request, template_name, {"form": form})
 
