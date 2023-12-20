@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+# noinspection PyUnresolvedReferences
 from main.models import Group, Task, GroupAdmin
 from datetime import datetime, timedelta
 from django.utils import timezone
@@ -8,8 +9,16 @@ from django.utils import timezone
 class TestGroupModel(TestCase):
 
     def setUp(self):
-        self.user1 = get_user_model().objects.create_user(username='user1', password='password1', email='user1@example.com')
-        self.user2 = get_user_model().objects.create_user(username='user2', password='password2', email='user2@example.com')
+        self.user1 = get_user_model().objects.create_user(
+            username='user1',
+            password='password1',
+            email='user1@example.com'
+        )
+        self.user2 = get_user_model().objects.create_user(
+            username='user2',
+            password='password2',
+            email='user2@example.com'
+        )
 
     def test_group_str_representation(self):
         group_name = 'Test Group'
@@ -35,13 +44,22 @@ class TestGroupModel(TestCase):
 
         self.assertEqual(user_count, 2)
 
+
 class TestTaskModel(TestCase):
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
         self.group = Group.objects.create(name='Test Group')
-        self.user1 = get_user_model().objects.create_user(username='user1', password='password1', email='user1@example.com')
-        self.user2 = get_user_model().objects.create_user(username='user2', password='password2', email='user2@example.com')
+        self.user1 = get_user_model().objects.create_user(
+            username='user1',
+            password='password1',
+            email='user1@example.com'
+        )
+        self.user2 = get_user_model().objects.create_user(
+            username='user2',
+            password='password2',
+            email='user2@example.com'
+        )
 
     def create_task(self, subject='Test Subject', topic='Test Topic', description='Test Description', due_date=None):
         if due_date is None:
