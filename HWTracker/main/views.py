@@ -107,10 +107,12 @@ def add_task_form(request, task_id=None):
 
     if task_id:
         # Editing an existing task
+        page_title = 'Изменение'
         task = get_object_or_404(Task, id=task_id)
         form = TaskForm(request.POST or None, instance=task)
     else:
         # Creating a new task
+        page_title = 'Создание'
         form = TaskForm(request.POST or None)
 
     if request.method == "POST":
@@ -149,9 +151,9 @@ def add_task_form(request, task_id=None):
                     out[label] = []
                 out[label] += [error.messages[0] for error in errors]
 
-            return render(request, template_name, {'user': request.user, "form": form, "form_errors": out})
+            return render(request, template_name, {'page': page_title, 'user': request.user, "form": form, "form_errors": out})
 
-    return render(request, template_name, {'user': request.user, "form": form})
+    return render(request, template_name, {'page': page_title, 'user': request.user, "form": form})
 
 
 def group_detail(request, name):
