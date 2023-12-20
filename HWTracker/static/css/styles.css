@@ -1,13 +1,21 @@
 /* static/style.css */
 
-body {
+.main-div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background: #D9D9D9;
+
+}
+
+.milk-bg {
+    background-color: #D9D9D9 !important;
+}
+
+body {
+    all: unset;
 }
 
 .header {
@@ -32,49 +40,14 @@ body > form {
     max-width: 600px;
 }
 
-/* .logo-1 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;s
-  justify-content: center;
-} */
-
-
-.tg-button {
-    z-index: 3;
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-}
-
-.tg-button:hover img {
-    z-index: 3;
-    opacity: 0.7;
-    cursor: pointer;
-}
-
-/* .top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 150px;
-  background-color: rgb(196, 196, 196);
-} */
-
-h1 {
-    font-family: 'Franklin Gothic Medium';
+.h1-fgm-font {
+    font-family: 'Franklin Gothic Medium', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 108px;
     line-height: 89%;
     text-align: center;
     color: #000000;
-    margin-right: center;
 }
 
 /*кнопка входа*/
@@ -107,174 +80,20 @@ h1 {
     text-decoration: none;
 }
 
-/* кнопка выхода
-.exit-button-container {
-  position: fixed;
-  z-index: 1;
-  top: 40px;
-  right: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 239px;
-  height: 74px;
-  background: #6A6A6A;
-  border-radius: 16px;
-}
-
-.exit-button-container:hover {
-  background-color: gray;
-}
-
-.exit-button {
-  padding: 19px 54px;
-  font-family: 'Franklin Gothic Medium';
-  font-style: normal;
-  font-size: 48px;
-  line-height: 89%;
-  text-align: center;
-  color: #FFFFFF;
-  text-decoration: none;
-} */
-
-/*курс*/
-.box-course {
-    position: fixed;
-    top: 27px;
-    left: 150px;
-    display: flex;
-    z-index: 1;
-    flex-direction: column;
-    flex: none;
-}
-
-.word-course {
-    font-family: 'Franklin Gothic Medium';
-    font-size: 25px;
-    color: #3a3a3a;
-    position: relative;
-    background-color: #E3E3E3;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    width: 60px;
-    height: 20px;
-}
-
-.extra-buttons {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: center;
-    border-radius: 10px;
-    width: 80px;
-    height: 20px;
-}
-
-.word-course:hover .extra-buttons {
-    display: block;
-}
-
-.course-button {
-    padding: 6px 24px;
-    font-family: 'Franklin Gothic Medium';
-    font-size: 20px;
-    border-radius: 10px;
-    width: 80px;
-}
-
-/*блок*/
-.block-of-subject {
-    position: relative;
-    align-items: center;
-    width: 400px;
-    height: 250px;
-    background: #FFFFFF;
-    border-radius: 12px;
-}
-
-.name-of-subject {
-    position: sticky;
-    width: auto;
-    height: 50px;
-    background: #F8F9FA;
-    border-bottom: 1px solid #E9ECEF;
-    order: 0;
-    border-radius: 10px;
-}
-
-.text-subject {
-    position: relative;
-    left: 10px;
-    top: 10px;
-    font-family: 'Franklin Gothic Medium';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 24px;
-    color: rgb(90, 90, 90)
-}
-
-/* .button-done {
-  position: sticky;
-  width: 30px;
-  height: 30px;
-  display: block;
-  overflow: visible;
-  background: #727272;
-  border-radius: 10px;
-} */
-
-
-.theme {
-    position: relative;
-    left: 10px;
-    width: auto;
-    height: 40px;
-    font-family: 'Franklin Gothic Medium';
-    font-size: 24px;
-    color: #212529;
-}
-
-.homework {
-    position: relative;
-    left: 10px;
-    right: 10px;
-    width: calc(99% - 10px);
-    height: auto;
-    word-wrap: break-word;
-    font-family: 'Franklin Gothic Medium';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    color: #212529;
-}
-
 .date {
-    position: absolute;
-    bottom: -10px;
-    right: 10px;
     max-width: calc(100% - 10px);
-    font-family: 'Franklin Gothic Medium';
+    font-family: 'Franklin Gothic Medium', serif;
     font-size: 18px;
     line-height: 24px;
-    text-align: right;
     color: #212529;
 }
 
 
 .task-group {
-    position: absolute;
-    bottom: -10px;
-    left: 10px;
     max-width: calc(100% - 10px);
-    font-family: 'Franklin Gothic Medium';
+    font-family: 'Franklin Gothic Medium', serif;
     font-size: 18px;
     line-height: 24px;
-    text-align: right;
     color: #212529;
 }
 
@@ -402,16 +221,11 @@ body {
     overflow: hidden;
 }
 
-.card-body {
+.card-body-custom {
     position: relative;
 }
 
-.highlight_edit > h5 {
-    text-decoration: none;
-    color: black;
-}
-
-.highlight_edit > p {
+.highlight_edit > div {
     text-decoration: none;
     color: black;
 }
@@ -444,10 +258,10 @@ body {
     z-index: 2;
 }
 
-.card-body:hover .highlight_edit::before {
+.card-body-custom:hover .highlight_edit::before {
     opacity: 1;
 }
 
-.card-body:hover .highlight_edit::after {
+.card-body-custom:hover .highlight_edit::after {
     opacity: 1;
 }

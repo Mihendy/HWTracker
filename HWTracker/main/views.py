@@ -86,9 +86,11 @@ def student(request):
     for task in tasks:
         task.status = 'completed' if task.is_completed_by_user(user) else 'incompleted'
 
-    return render(request, template_name,
-                  {'first_name': first_name, 'last_name': last_name, 'user': request.user,
-                   'data': data, 'is_editor': is_editor, 'group': group.name if group is not None else 'Нет группы'})
+    return render(request, template_name, {
+        'user': request.user,
+        'data': data,
+        'group': group.name if group is not None else 'Нет группы'
+    })
 
 
 def add_task_form(request, task_id=None):
@@ -98,7 +100,9 @@ def add_task_form(request, task_id=None):
     if username is None:
         return redirect('/')
 
-    if not request.user.is_editor:
+    is_editor = request.user.is_editor
+
+    if not is_editor:
         return HttpResponseForbidden()
 
     if task_id:
@@ -145,9 +149,9 @@ def add_task_form(request, task_id=None):
                     out[label] = []
                 out[label] += [error.messages[0] for error in errors]
 
-            return render(request, template_name, {"form": form, "form_errors": out})
+            return render(request, template_name, {'user': request.user, "form": form, "form_errors": out})
 
-    return render(request, template_name, {"form": form})
+    return render(request, template_name, {'user': request.user, "form": form})
 
 
 def group_detail(request, name):
