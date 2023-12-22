@@ -43,6 +43,18 @@ def delete_task(request):
     return JsonResponse({'success': True})
 
 
+def delete_group(request):
+    data = json.loads(request.body)
+    group_id = data.get('group_id')
+    try:
+        group = Group.objects.get(id=group_id)
+        group.delete()
+    except Group.DoesNotExist:
+        return JsonResponse({'success': False})
+
+    return JsonResponse({'success': True})
+
+
 def check_task(request):
     data = json.loads(request.body)
     task_id = data.get('task_id')

@@ -16,6 +16,14 @@ async function make_request(method, url, data) {
     }
 }
 
+function recountRows() {
+    var rows = document.getElementsByClassName('group-row');
+    for (var i = 0; i < rows.length; i++) {
+        var counterCell = rows[i].getElementsByClassName('counter')[0];
+        counterCell.textContent = i + 1;
+    }
+}
+
 async function checkTask(element, task_id, status, user_id) {
     const response = await make_request('POST', '/checktask/', {
             task_id: task_id,
@@ -51,5 +59,19 @@ async function deleteTaskBlock(taskId) {
         taskBlock.remove();
     }
     // console.log(data);
+    return data;
+}
+
+async function deleteGroup(groupId) {
+    const response = await make_request('POST', '/deletegroup/', {
+            group_id: groupId,
+    });
+    const data = await response.json();
+    if (data.success){
+        const groupBlock = document.getElementById(groupId);
+        groupBlock.remove();
+        recountRows();
+    }
+    console.log(data);
     return data;
 }

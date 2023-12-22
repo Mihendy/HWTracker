@@ -27,7 +27,7 @@ class Task(models.Model):
     description = models.TextField(max_length=150)
     due_date = models.DateTimeField()
     completed_by = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='completed_tasks')
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, related_name='tasks')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True, related_name='tasks')
 
     def __str__(self):
         return f'{self.subject} - {self.topic}'
