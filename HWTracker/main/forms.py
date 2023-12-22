@@ -64,4 +64,10 @@ class TaskForm(forms.ModelForm):
 
 
 class GroupForm(forms.ModelForm):
-    pass
+    name = forms.CharField(
+        label="Название",
+        widget=forms.TextInput(),
+        max_length=45,
+        validators=[validate_extended_slug],
+        error_messages={'invalid': 'Это поле может содержать только буквы, цифры, знаки подчеркивания и дефис'}
+    )

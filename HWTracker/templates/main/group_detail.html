@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ group.name }} {% endblock %}
+{% block content %}
+    {% csrf_token %}
+    <div class="d-flex flex-column grid-container p-3 w-100">
+        <div class="mb-1">
+            <a style="font-size: 18px; color: black; text-decoration: none;" href="/groups">
+                <b><i class="bi bi-arrow-left"></i>Назад</b>
+            </a>
+        </div>
+        {% if group.users.all %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Участник</th>
+                    <th scope="col">Почта</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in group.users.all %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td class="col-1">
+                            <button type="button" class="btn btn-danger btn-sm bi-trash-fill"></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            попа
+        {% endif %}
+    </div>
+{% endblock %}

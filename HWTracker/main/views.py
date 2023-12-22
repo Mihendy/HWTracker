@@ -153,19 +153,12 @@ def add_task_form(request, task_id=None):
 def group_detail(request, group_id=None):
     template_name = 'main/group_detail.html'
 
-    # if group_id:
-    #     # Editing an existing task
-    #     page_title = 'Изменение'
-    #     group = get_object_or_404(Group, id=group_id)
-    #     # form = (request.POST or None, instance=group)
-    # else:
-    #     # Creating a new task
-    #     page_title = 'Создание'
-    #     form = TaskForm(request.POST or None)
-    #
-    # # return render(request, template_name, {'name': name})
-    # return render(request, template_name)
-    pass
+    if group_id:
+        group = get_object_or_404(Group, id=group_id)
+    elif group_id == "new":
+        pass
+
+    return render(request, template_name, {'group': group})
 
 
 @authorized_only
