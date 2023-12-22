@@ -26,6 +26,9 @@ class Task(models.Model):
 
     def is_completed_by_user(self, user):
         return self.completed_by.filter(pk=user.pk).exists()
+    
+    def get_statistics(self) -> (int, int):
+        return (self.completed_by.count(), self.group.users.count())
 
     class Meta:
         ordering = ['due_date']
