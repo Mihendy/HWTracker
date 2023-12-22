@@ -22,15 +22,15 @@
             </thead>
             <tbody>
             {% for group in groups %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
+                <tr id='{{ group.id }}' class="group-row">
+                    <th scope="row" class="counter">{{ forloop.counter }}</th>
                     <td>{{ group.name }}</td>
                     <td>{{ group.get_members_count }}</td>
                     <td>{{ group.get_tasks_count }}</td>
                     <td class="col-1">
                         <a type="button" class="btn btn-primary btn-sm bi-pencil-fill" href="/groups/{{ group.id }}"></a>
                     </td>
-                    <td class="col-1">
+                    <td class="col-1" onclick='deleteGroup("{{ group.id }}")'>
                         <button type="button" class="btn btn-danger btn-sm bi-trash-fill"></button>
                     </td>
                 </tr>
@@ -38,4 +38,5 @@
             </tbody>
         </table>
     </div>
+    <script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}
