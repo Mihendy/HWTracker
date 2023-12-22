@@ -61,3 +61,7 @@ class TaskForm(forms.ModelForm):
         super(TaskForm, self).__init__(*args, **kwargs)
         if kwargs.get('instance'):
             self.fields['group'].initial = kwargs['instance'].group_id
+
+
+class GroupForm(forms.ModelForm):
+    pass

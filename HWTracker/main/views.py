@@ -13,6 +13,8 @@ from users.models import User
 from .forms import TaskForm
 from .models import Group, Task
 
+from .functions import authorized_only, editor_only
+
 CLIENT_ID = '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com'
 
 REDIRECT_URI = 'http://127.0.0.1:8000/auth'
@@ -65,16 +67,11 @@ def check_task(request):
     return JsonResponse({'success': True})
 
 
+@authorized_only
 def student(request):
     template_name = 'main/student.html'
-    username = request.session.get('username')
-
-    if username is None:
-        return redirect('/')
 
     user = request.user
-    first_name = user.first_name
-    last_name = user.last_name
     group = user.group
     is_editor = request.user.is_editor
 
@@ -93,17 +90,10 @@ def student(request):
     })
 
 
+@authorized_only
+@editor_only
 def add_task_form(request, task_id=None):
     template_name = 'main/add_task_form.html'
-    username = request.session.get('username')
-
-    if username is None:
-        return redirect('/')
-
-    is_editor = request.user.is_editor
-
-    if not is_editor:
-        return HttpResponseForbidden()
 
     if task_id:
         # Editing an existing task
@@ -151,16 +141,38 @@ def add_task_form(request, task_id=None):
                     out[label] = []
                 out[label] += [error.messages[0] for error in errors]
 
-            return render(request, template_name, {'page': page_title, 'user': request.user, "form": form, "form_errors": out})
+            return render(request, template_name,
+                          {'page': page_title, 'user': request.user, "form": form, "form_errors": out})
 
     return render(request, template_name, {'page': page_title, 'user': request.user, "form": form})
 
 
-def group_detail(request, name):
-    # template_name = 'group_detail.html'
+@authorized_only
+@editor_only
+def group_detail(request, group_id=None):
+    template_name = 'main/group_detail.html'
+
+    # if group_id:
+    #     # Editing an existing task
+    #     page_title = 'Изменение'
+    #     group = get_object_or_404(Group, id=group_id)
+    #     # form = (request.POST or None, instance=group)
+    # else:
+    #     # Creating a new task
+    #     page_title = 'Создание'
+    #     form = TaskForm(request.POST or None)
     #
-    # return render(request, template_name, {'name': name})
-    return HttpResponseForbidden()
+    # # return render(request, template_name, {'name': name})
+    # return render(request, template_name)
+    pass
+
+
+@authorized_only
+@editor_only
+def groups(request):
+    template_name = 'main/groups.html'
+    groups = get_groups()
+    return render(request, template_name, {'groups': groups, 'user': request.user})
 
 
 def handle_auth(request):

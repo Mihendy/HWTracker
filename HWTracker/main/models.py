@@ -1,13 +1,21 @@
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
+from .functions import get_random_string32
 
 
 class Group(models.Model):
     name = models.CharField(max_length=50)
+    _hash = models.CharField(max_length=256, default=get_random_string32)
 
     def __str__(self):
         return self.name
+
+    def get_members_count(self):
+        return self.users.count()
+
+    def get_tasks_count(self):
+        return self.tasks.count()
 
     class Meta:
         ordering = ['name']

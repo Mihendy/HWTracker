@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from main.models import Group, Task, GroupAdmin
 from datetime import datetime, timedelta
 from django.utils import timezone
+from random import shuffle
 
 
 class TestGroupModel(TestCase):
@@ -27,6 +28,7 @@ class TestGroupModel(TestCase):
 
     def test_group_meta_ordering(self):
         group_names = ['FT-201', 'FT-202', 'FT-203']
+        shuffle(group_names)
         for name in group_names:
             Group.objects.create(name=name)
 

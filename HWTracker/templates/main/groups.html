@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Группы {% endblock %}
+{% block content %}
+    {% csrf_token %}
+    <div class="d-flex flex-column grid-container p-3 w-100">
+        <div class="mb-1">
+            <a style="font-size: 18px; color: black; text-decoration: none;" href="/">
+                <b><i class="bi bi-arrow-left"></i>Назад</b>
+            </a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Группа</th>
+                <th scope="col">Людей</th>
+                <th scope="col">Заданий</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for group in groups %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ group.name }}</td>
+                    <td>{{ group.get_members_count }}</td>
+                    <td>{{ group.get_tasks_count }}</td>
+                    <td class="col-1">
+                        <button type="button" class="btn btn-primary btn-sm bi-pencil-fill"></button>
+                    </td>
+                    <td class="col-1">
+                        <button type="button" class="btn btn-danger btn-sm bi-trash-fill"></button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
