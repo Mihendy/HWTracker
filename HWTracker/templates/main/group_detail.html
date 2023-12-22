@@ -21,12 +21,12 @@
                 </thead>
                 <tbody>
                 {% for user in group.users.all %}
-                    <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
+                    <tr id="{{ user.id }}" class="group-row">
+                        <th scope="row" class="counter">{{ forloop.counter }}</th>
                         <td>{{ user.first_name }} {{ user.last_name }}</td>
                         <td>{{ user.email }}</td>
                         <td class="col-1">
-                            <button type="button" class="btn btn-danger btn-sm bi-trash-fill"></button>
+                            <button type="button" onclick='deleteUser("{{ user.id }}")' class="btn btn-danger btn-sm bi-trash-fill"></button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -36,4 +36,5 @@
             попа
         {% endif %}
     </div>
+    <script src="{% static 'js/functions.js' %}"></script>
 {% endblock %}

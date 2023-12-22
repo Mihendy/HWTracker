@@ -55,6 +55,18 @@ def delete_group(request):
     return JsonResponse({'success': True})
 
 
+def delete_user(request):
+    data = json.loads(request.body)
+    user_id = data.get('user_id')
+    try:
+        user = User.objects.get(id=user_id)
+        user.delete()
+    except User.DoesNotExist:
+        return JsonResponse({'success': False})
+
+    return JsonResponse({'success': True})
+
+
 def check_task(request):
     data = json.loads(request.body)
     task_id = data.get('task_id')

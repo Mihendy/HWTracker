@@ -75,3 +75,17 @@ async function deleteGroup(groupId) {
     console.log(data);
     return data;
 }
+
+async function deleteUser(userId) {
+    const response = await make_request('POST', '/deleteuser/', {
+            user_id: userId,
+    });
+    const data = await response.json();
+    if (data.success){
+        const userBlock = document.getElementById(userId);
+        userBlock.remove();
+        recountRows();
+    }
+    console.log(data);
+    return data;
+}
