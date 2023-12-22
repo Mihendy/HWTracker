@@ -52,6 +52,7 @@ def check_task(request):
         return JsonResponse({'success': False})
     task = Task.objects.get(id=task_id)
     user = User.objects.get(id=user_id)
+    
     try:
         if status == 'incompleted':
             task.status = 'completed'
