@@ -22,6 +22,6 @@ urlpatterns = [
     path('checktask/', views.check_task, name='checktask'),
     path('deletetask/', views.delete_task, name='deletetask'),
     path('deletegroup/', views.delete_group, name='deletegroup'),
-    path('invites/<str:_hash>', views.invites, name='invites')
+    path('invites/<str:_hash>', views.invites, name='invites'),
     path('deleteuser/', views.delete_user, name='deleteuser'),
 ]
