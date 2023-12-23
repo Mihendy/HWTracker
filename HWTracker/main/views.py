@@ -60,7 +60,8 @@ def delete_user(request):
     user_id = data.get('user_id')
     try:
         user = User.objects.get(id=user_id)
-        user.delete()
+        user.group = None
+        user.save()
     except User.DoesNotExist:
         return JsonResponse({'success': False})
 
