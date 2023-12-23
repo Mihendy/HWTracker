@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 # noinspection PyUnresolvedReferences
-from main.views import index, student, logout, group_detail, add_task_form, check_task, delete_task
+from main.views import delete_group, delete_user, index, invites, student, logout, group_detail, add_task_form, check_task, delete_task
 
 
 class TestUrls(SimpleTestCase):
@@ -19,7 +19,8 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, logout)
 
     def test_group_detail_url_is_resolved(self):
-        url = reverse('group_detail', args=['example_group'])
+        group_id = 1
+        url = reverse('group_detail', args=[group_id])
         self.assertEquals(resolve(url).func, group_detail)
 
     def test_taskform_url_is_resolved(self):
@@ -33,3 +34,16 @@ class TestUrls(SimpleTestCase):
     def test_delete_task_url_is_resolved(self):
         url = reverse('deletetask')
         self.assertEquals(resolve(url).func, delete_task)
+
+    def test_delete_group_url_is_resolved(self):
+        url = reverse('deletegroup')
+        self.assertEquals(resolve(url).func, delete_group)
+
+    def test_invites_url_is_resolved(self):
+        _hash = 'example_hash'
+        url = reverse('invites', args=[_hash])
+        self.assertEquals(resolve(url).func, invites)
+
+    def test_delete_user_url_is_resolved(self):
+        url = reverse('deleteuser')
+        self.assertEquals(resolve(url).func, delete_user)
