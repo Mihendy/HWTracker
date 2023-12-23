@@ -65,9 +65,15 @@ class TaskForm(forms.ModelForm):
 
 class GroupForm(forms.ModelForm):
     name = forms.CharField(
-        label="Название",
-        widget=forms.TextInput(),
+        label=False,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control form-control-lg', 'autocomplete': 'off', 'id': 'group-name',
+                   'placeholder': 'Название группы'}),
         max_length=45,
         validators=[validate_extended_slug],
         error_messages={'invalid': 'Это поле может содержать только буквы, цифры, знаки подчеркивания и дефис'}
     )
+
+    class Meta:
+        model = Group
+        fields = ['name']

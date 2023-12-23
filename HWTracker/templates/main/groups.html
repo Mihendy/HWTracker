@@ -2,36 +2,64 @@
 {% load static %}
 {% block title %} Группы {% endblock %}
 {% block content %}
-    {% csrf_token %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Создать группу</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Название</span>
+                            {{ form.name }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Создать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="d-flex flex-column grid-container p-3 w-100">
+
         <div class="mb-1">
             <a style="font-size: 18px; color: black; text-decoration: none;" href="/">
                 <b><i class="bi bi-arrow-left"></i>Назад</b>
             </a>
         </div>
+        {% include "includes/error-alert.html" %}
         <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Группа</th>
-                <th scope="col">Людей</th>
-                <th scope="col">Заданий</th>
+                <th scope="col" class="text-center">Группа</th>
+                <th scope="col" class="text-center">Участники</th>
+                <th scope="col" class="text-center">Заданий</th>
                 <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">
+                    <button type="button" class="btn btn-primary btn-sm bi-plus-lg" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"></button>
+                </th>
             </tr>
             </thead>
             <tbody>
             {% for group in groups %}
                 <tr id='{{ group.id }}' class="group-row">
                     <th scope="row" class="counter">{{ forloop.counter }}</th>
-                    <td>{{ group.name }}</td>
-                    <td>{{ group.get_members_count }}</td>
-                    <td>{{ group.get_tasks_count }}</td>
+                    <td class="text-center">{{ group.name }}</td>
+                    <td class="text-center">{{ group.get_members_count }}</td>
+                    <td class="text-center">{{ group.get_tasks_count }}</td>
                     <td class="col-1">
-                        <a type="button" class="btn btn-primary btn-sm bi-pencil-fill" href="/groups/{{ group.id }}"></a>
+                        <a type="button" class="btn btn-warning btn-sm bi-pencil-fill"
+                           href="/groups/{{ group.id }}"></a>
                     </td>
                     <td class="col-1" onclick='deleteGroup("{{ group.id }}")'>
-                        <button type="button" class="btn btn-danger btn-sm bi-trash-fill"></button>
+                        <button type="button" id="modal" class="btn btn-danger btn-sm bi-trash-fill"></button>
                     </td>
                 </tr>
             {% endfor %}

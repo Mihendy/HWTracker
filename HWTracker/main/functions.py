@@ -27,3 +27,14 @@ def editor_only(func):
         return func(request, *args, **kwargs)
 
     return wrapper
+
+
+def errors_to_text(form):
+    out = {}
+    errs = form.errors.as_data()
+    for field_name, errors in errs.items():
+        label = form.fields[field_name].label or field_name
+        if label not in out:
+            out[label] = []
+        out[label] += [error.messages[0] for error in errors]
+    return out

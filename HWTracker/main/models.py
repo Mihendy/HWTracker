@@ -1,7 +1,8 @@
-from django.conf import settings
 from django.contrib import admin
 from django.db import models
 from .functions import get_random_string32
+from django.conf import settings
+from django.urls import reverse
 
 
 class Group(models.Model):
@@ -16,6 +17,10 @@ class Group(models.Model):
 
     def get_tasks_count(self):
         return self.tasks.count()
+
+    def get_invite_url(self):
+        url = reverse('invites', args=[self._hash])
+        return f"http://{settings.SERVER_DOMAIN}{url}"
 
     class Meta:
         ordering = ['name']

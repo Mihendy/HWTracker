@@ -4,16 +4,17 @@ from urllib.parse import parse_qs, urlparse
 import jwt
 import requests
 from django.contrib.auth import login
-from django.http import HttpResponseForbidden, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
+from .functions import get_random_string32
 
 # noinspection PyUnresolvedReferences
 from users.models import User
 
-from .forms import TaskForm
+from .forms import TaskForm, GroupForm
 from .models import Group, Task
 
-from .functions import authorized_only, editor_only
+from .functions import authorized_only, editor_only, errors_to_text
 
 CLIENT_ID = '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com'
 
@@ -64,7 +65,7 @@ def check_task(request):
         return JsonResponse({'success': False})
     task = Task.objects.get(id=task_id)
     user = User.objects.get(id=user_id)
-    
+
     try:
         if status == 'incompleted':
             task.status = 'completed'
@@ -146,13 +147,7 @@ def add_task_form(request, task_id=None):
 
             return redirect("/student")
         else:
-            out = {}
-            errs = form.errors.as_data()
-            for field_name, errors in errs.items():
-                label = form.fields[field_name].label or field_name
-                if label not in out:
-                    out[label] = []
-                out[label] += [error.messages[0] for error in errors]
+            out = errors_to_text(form)
 
             return render(request, template_name,
                           {'page': page_title, 'user': request.user, "form": form, "form_errors": out})
@@ -162,15 +157,26 @@ def add_task_form(request, task_id=None):
 
 @authorized_only
 @editor_only
-def group_detail(request, group_id=None):
+def group_detail(request, group_id):
     template_name = 'main/group_detail.html'
 
-    if group_id:
-        group = get_object_or_404(Group, id=group_id)
-    elif group_id == "new":
-        pass
+    group = get_object_or_404(Group, id=group_id)
+    form = GroupForm(request.POST or None, instance=group)
+    if request.method == "POST":
+        if 'rename' in request.POST:
+            if form.is_valid():
+                group.name = form.cleaned_data['name']
+                group.save()
+            else:
+                out = errors_to_text(form)
+                return render(request, template_name,
+                              {'user': request.user, 'group': group, "form": form, "form_errors": out})
+        elif 'update' in request.POST:
+            group._hash = get_random_string32()
+            group.save()
+            return redirect(request.path)
 
-    return render(request, template_name, {'group': group})
+    return render(request, template_name, {'user': request.user, 'group': group, "form": form})
 
 
 @authorized_only
@@ -178,7 +184,28 @@ def group_detail(request, group_id=None):
 def groups(request):
     template_name = 'main/groups.html'
     groups = get_groups()
-    return render(request, template_name, {'groups': groups, 'user': request.user})
+    form = GroupForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            new_group = Group(name=form.cleaned_data["name"])
+            new_group.save()
+            return redirect('/groups')
+        else:
+            out = errors_to_text(form)
+            return render(
+                request,
+                template_name,
+                {'groups': groups, 'user': request.user, 'form': form, "form_errors": out}
+            )
+    return render(request, template_name, {'groups': groups, 'user': request.user, 'form': form})
+
+
+@authorized_only
+def invites(request, _hash):
+    group = get_object_or_404(Group, _hash=_hash)
+    group.users.add(request.user)
+    # Другие действия, связанные с добавлением пользователя в группу
+    return redirect('student')
 
 
 def handle_auth(request):
