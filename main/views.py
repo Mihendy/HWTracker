@@ -7,8 +7,6 @@ from django.contrib.auth import login
 from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from .functions import get_random_string32
-
-# noinspection PyUnresolvedReferences
 from users.models import User
 
 from .forms import TaskForm, GroupForm
