@@ -13,12 +13,9 @@ from .forms import TaskForm, GroupForm
 from .models import Group, Task
 
 from .functions import authorized_only, editor_only, errors_to_text
+from config import SERVER_DOMAIN, CLIENT_SECRET, CLIENT_ID
 
-CLIENT_ID = '437781818230-4tdb2qsrg7qhlmu5ud8dbge55mf8e79k.apps.googleusercontent.com'
-
-REDIRECT_URI = 'http://127.0.0.1:8000/auth'
-
-CLIENT_SECRET = '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'
+REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
 
 
 def index(request):
