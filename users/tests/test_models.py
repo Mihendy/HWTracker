@@ -2,24 +2,26 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from users.models import Group
 
+
+def create_user(username, password, email, group, is_editor=False, is_superuser=False):
+    return get_user_model().objects.create_user(
+        username=username,
+        password=password,
+        email=email,
+        group=group,
+        is_editor=is_editor,
+        is_superuser=is_superuser,
+        is_staff=is_superuser
+    )
+
+
 class TestUserModel(TestCase):
 
     def setUp(self):
         self.group = Group.objects.create(name='Test Group')
 
-    def create_user(self, username, password, email, group, is_editor=False, is_superuser=False):
-        return get_user_model().objects.create_user(
-            username=username,
-            password=password,
-            email=email,
-            group=group,
-            is_editor=is_editor,
-            is_superuser=is_superuser,
-            is_staff=is_superuser
-        ) 
-
     def test_create_user(self):
-        user = self.create_user(
+        user = create_user(
             username='testuser',
             password='testpassword',
             email='testuser@example.com',
@@ -34,7 +36,7 @@ class TestUserModel(TestCase):
         self.assertFalse(user.is_superuser)
 
     def test_create_superuser(self):
-        superuser = self.create_user(
+        superuser = create_user(
             username='adminuser',
             password='adminpassword',
             email='adminuser@example.com',
@@ -48,7 +50,7 @@ class TestUserModel(TestCase):
         self.assertTrue(superuser.is_superuser)
 
     def test_user_str_representation(self):
-        user = self.create_user(
+        user = create_user(
             username='testuser',
             password='testpassword',
             email='testuser@example.com',
