@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-# noinspection PyUnresolvedReferences
 from main.models import Group, Task, GroupAdmin
 from datetime import datetime, timedelta
 from django.utils import timezone
