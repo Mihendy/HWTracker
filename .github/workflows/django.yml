@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 env:
-  DJANGO_SECRET_KEY: ${{ vars.DJANGO_SECRET_KEY }}
-  DJANGO_DEBUG: ${{ vars.DJANGO_DEBUG }}
-  GOOGLE_CLIENT_SECRET: ${{ vars.GOOGLE_CLIENT_SECRET }}
-  GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
-  SERVER_DOMAIN: ${{ vars.SERVER_DOMAIN }}
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}
 
 jobs:
   build:
