@@ -4,6 +4,9 @@ FROM python:3.9
 # Устанавливаем рабочую директорию
 WORKDIR /HWTracker
 
+# Устанавливаем переменную окружения PYTHONUNBUFFERED в значение 1
+ENV PYTHONUNBUFFERED=1
+
 # Копируем файл requirements.txt и устанавливаем зависимости
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
