@@ -3,26 +3,26 @@ HWTracker - это веб-приложение, разработанное с и
 
 ## Установка
 1. Клонируйте репозиторий:
-  ```
-  git clone https://github.com/username/HWTracker.git
-  ```
+```bash
+git clone https://github.com/username/HWTracker.git
+```
 2. Перейдите в директорию проекта:
-   ```
-   cd HWTracker
-   ```
+```bash
+cd HWTracker
+```
 3. Установите все зависимости, указанные в файле requirements.txt:
-   ```
-    pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
 4. Создайте и примените миграции для базы данных:
-  ```
-  python manage.py makemigrations
-  python manage.py migrate
-  ```
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
 5. Запустите сервер:
-  ```
+```bash
 python manage.py runserver
-  ```
+```
 > [!TIP]
 > Теперь вы можете открыть `http://localhost:8000/` в вашем веб-браузере и использовать HWTracker!
 
