@@ -1,4 +1,6 @@
 import json
+import logging
+from datetime import date
 from urllib.parse import parse_qs, urlparse
 
 import jwt
@@ -17,6 +19,8 @@ from config import SERVER_DOMAIN, CLIENT_SECRET, CLIENT_ID
 
 REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
 
+logger = logging.getLogger(__name__)
+
 
 def index(request):
     template_name = 'main/index.html'
@@ -34,6 +38,7 @@ def delete_task(request):
         task = Task.objects.get(id=task_id)
         task.delete()
     except Task.DoesNotExist:
+        logger.warning(f"Task with id={task_id} does not exist")
         return JsonResponse({'success': False})
 
     return JsonResponse({'success': True})
@@ -46,6 +51,7 @@ def delete_group(request):
         group = Group.objects.get(id=group_id)
         group.delete()
     except Group.DoesNotExist:
+        logger.warning(f"Group with id={group_id} does not exist")
         return JsonResponse({'success': False})
 
     return JsonResponse({'success': True})
@@ -59,6 +65,7 @@ def delete_user(request):
         user.group = None
         user.save()
     except User.DoesNotExist:
+        logger.warning(f"User with id={user_id} does not exist")
         return JsonResponse({'success': False})
 
     return JsonResponse({'success': True})
@@ -71,10 +78,9 @@ def check_task(request):
     status = data.get('status')
     if task_id is None or user_id is None or status is None:
         return JsonResponse({'success': False})
-    task = Task.objects.get(id=task_id)
-    user = User.objects.get(id=user_id)
-
     try:
+        task = Task.objects.get(id=task_id)
+        user = User.objects.get(id=user_id)
         if status == 'incompleted':
             task.status = 'completed'
             task.completed_by.add(user)
@@ -83,9 +89,9 @@ def check_task(request):
             task.completed_by.remove(user)
         task.save()
     except Task.DoesNotExist:
-        print(f'task {task} does not exist')
+        logger.warning(f"Task with id={task_id} does not exist")
     except User.DoesNotExist:
-        print(f'user {user} does not exist')
+        logger.warning(f"User with id={user_id} does not exist")
     return JsonResponse({'success': True})
 
 
@@ -191,7 +197,7 @@ def group_detail(request, group_id):
 @editor_only
 def groups(request):
     template_name = 'main/groups.html'
-    groups = get_groups()
+    all_groups = get_groups()
     form = GroupForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
@@ -203,16 +209,15 @@ def groups(request):
             return render(
                 request,
                 template_name,
-                {'groups': groups, 'user': request.user, 'form': form, "form_errors": out}
+                {'groups': all_groups, 'user': request.user, 'form': form, "form_errors": out}
             )
-    return render(request, template_name, {'groups': groups, 'user': request.user, 'form': form})
+    return render(request, template_name, {'groups': all_groups, 'user': request.user, 'form': form})
 
 
 @authorized_only
 def invites(request, _hash):
     group = get_object_or_404(Group, _hash=_hash)
     group.users.add(request.user)
-    # Другие действия, связанные с добавлением пользователя в группу
     return redirect('student')
 
 
@@ -230,6 +235,7 @@ def handle_auth(request):
                                          first_name=first_name,
                                          last_name=last_name)
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+    logger.info(f"User {user} authorized")
     return redirect('student')
 
 
@@ -238,13 +244,13 @@ def logout(request):
     return redirect('/')
 
 
-def get_task_separated_by_date(tasks: list[Task]) -> dict[str, list[Task]]:
+def get_task_separated_by_date(tasks: list[Task]) -> dict[date, list[Task]]:
     out = dict()
     for task in tasks:
-        date = task.due_date.date()
-        if date not in out:
-            out[date] = []
-        out[date].append(task)
+        _date = task.due_date.date()
+        if _date not in out:
+            out[_date] = []
+        out[_date].append(task)
     return out
 
 
