@@ -12,12 +12,11 @@ class User(AbstractUser):
     password = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
-        out = f'{self.first_name} {self.last_name} - ({self.username}) - ({self.email})'
-        out = out + ' (editor)' if self.is_editor else ''
+        out = f'{self.username} - {self.email}'
+        out = out + (' (editor)' if self.is_editor else '')
         return out
 
-
-class Meta:
-    unique_together = ('email',)
-    verbose_name = 'Пользователь'
-    verbose_name_plural = 'Пользователи'
+    class Meta:
+        unique_together = ('email',)
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'

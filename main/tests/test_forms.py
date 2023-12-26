@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.test import TestCase
-from django.contrib.auth import get_user_model
-from main.models import Group, Task
+from users.models import User
+from main.models import Group
 from main.forms import TaskForm
 from main.validators import validate_extended_slug
 
@@ -9,7 +9,7 @@ from main.validators import validate_extended_slug
 class TaskFormTests(TestCase):
 
     def setUp(self):
-        self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
+        self.user = User.objects.create_user(username='testuser', email='email@mail.com')
         self.group = Group.objects.create(name='Test Group')
         self.form_data = {
             'subject': 'Test Subject',

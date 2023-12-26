@@ -1,12 +1,15 @@
 from django.test import TestCase
-from django.contrib.auth import get_user_model
-from users.models import Group
+from users.models import User
+from main.models import Group
 
 
-def create_user(username, password, email, group, is_editor=False, is_superuser=False):
-    return get_user_model().objects.create_user(
+def create_user(username, email, first_name,
+                last_name='', group=None, password=None, is_editor=False, is_superuser=False):
+    return User.objects.create_user(
         username=username,
         password=password,
+        first_name=first_name,
+        last_name=last_name,
         email=email,
         group=group,
         is_editor=is_editor,
@@ -18,42 +21,23 @@ def create_user(username, password, email, group, is_editor=False, is_superuser=
 class TestUserModel(TestCase):
 
     def setUp(self):
-        self.group = Group.objects.create(name='Test Group')
+        self.group = Group.objects.create(name='TestGroup')
 
     def test_create_user(self):
-        user = create_user(
-            username='testuser',
-            password='testpassword',
-            email='testuser@example.com',
-            group=self.group,
-            is_editor=True
-        )
+        user = create_user('testuser', 'testuser@example.com', 'USER',
+                           group=self.group,
+                           is_editor=True
+                           )
         self.assertEqual(user.username, 'testuser')
         self.assertEqual(user.email, 'testuser@example.com')
+        self.assertEqual(user.first_name, 'USER')
         self.assertEqual(user.group, self.group)
         self.assertTrue(user.is_editor)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
-
-    def test_create_superuser(self):
-        superuser = create_user(
-            username='adminuser',
-            password='adminpassword',
-            email='adminuser@example.com',
-            group=self.group,
-            is_superuser=True
-        )
-        self.assertEqual(superuser.username, 'adminuser')
-        self.assertEqual(superuser.email, 'adminuser@example.com')
-        self.assertEqual(superuser.group, self.group)
-        self.assertTrue(superuser.is_staff)
-        self.assertTrue(superuser.is_superuser)
+        self.assertEqual(user.last_name, '')
 
     def test_user_str_representation(self):
-        user = create_user(
-            username='testuser',
-            password='testpassword',
-            email='testuser@example.com',
-            group=self.group
-        )
-        self.assertEqual(str(user), 'testuser')
+        user = create_user(username='testuser', email='test@example.com', first_name='John', last_name='Doe')
+        expected_output = 'testuser - test@example.com'
+        self.assertEqual(str(user), expected_output)

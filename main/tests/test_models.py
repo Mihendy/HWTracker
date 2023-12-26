@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib.auth import get_user_model
+from users.models import User
 from main.models import Group, Task, GroupAdmin
 from datetime import datetime, timedelta
 from django.utils import timezone
@@ -9,12 +9,12 @@ from random import shuffle
 class TestGroupModel(TestCase):
 
     def setUp(self):
-        self.user1 = get_user_model().objects.create_user(
+        self.user1 = User.objects.create_user(
             username='user1',
             password='password1',
             email='user1@example.com'
         )
-        self.user2 = get_user_model().objects.create_user(
+        self.user2 = User.objects.create_user(
             username='user2',
             password='password2',
             email='user2@example.com'
@@ -49,14 +49,14 @@ class TestGroupModel(TestCase):
 class TestTaskModel(TestCase):
 
     def setUp(self):
-        self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.group = Group.objects.create(name='Test Group')
-        self.user1 = get_user_model().objects.create_user(
+        self.user1 = User.objects.create_user(
             username='user1',
             password='password1',
             email='user1@example.com'
         )
-        self.user2 = get_user_model().objects.create_user(
+        self.user2 = User.objects.create_user(
             username='user2',
             password='password2',
             email='user2@example.com'

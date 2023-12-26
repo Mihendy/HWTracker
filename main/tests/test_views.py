@@ -3,6 +3,7 @@ from django.urls import reverse
 from users.models import User
 from main.models import Task, Group
 
+
 class TestViews(TestCase):
 
     def setUp(self):
@@ -21,7 +22,7 @@ class TestViews(TestCase):
             'group': self.group
         }
         self.task = Task.objects.create(**self.task_data)
-    
+
     def set_user_editor_role(self, is_editor=True):
         self.user.is_editor = is_editor
         self.user.save()
@@ -69,7 +70,7 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 302)
 
         response = self.client.get(response.url)
-        
+
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'main/index.html')
 

@@ -1,7 +1,8 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
-# noinspection PyUnresolvedReferences
-from main.views import delete_group, delete_user, index, invites, student, logout, group_detail, add_task_form, check_task, delete_task
+from main.views import (delete_group, delete_user, index,
+                        invites, student, logout, group_detail,
+                        add_task_form, check_task, delete_task)
 
 
 class TestUrls(SimpleTestCase):
