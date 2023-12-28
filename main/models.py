@@ -40,8 +40,16 @@ class Task(models.Model):
     def is_completed_by_user(self, user):
         return self.completed_by.filter(pk=user.pk).exists()
 
-    def get_statistics(self) -> (int, int):
-        return self.completed_by.count(), self.group.users.count()
+    def get_completed_count(self):
+        return self.completed_by.count()
+    
+    def get_group_size(self):
+        return self.group.users.count()
+    
+    def get_completed_ratio(self):
+        if self.get_group_size() == 0:
+            return 0
+        return int(self.get_completed_count() / self.get_group_size() * 100)
 
     class Meta:
         ordering = ['due_date']
