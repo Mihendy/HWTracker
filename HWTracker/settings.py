@@ -117,6 +117,6 @@ LOGGING = {
     },
     'root': {
         'handlers': ['file'],
-        'level': 'DEBUG',  # уровень логирования
+        'level': 'DEBUG',
     },
 }
