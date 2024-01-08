@@ -52,6 +52,12 @@
                                                     <i class="bi bi-clock-fill"></i>&nbsp;{{ task.due_date|date:"H:i" }}
                                                 </p>
                                             </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: {{ task.get_completed_ratio }}%" aria-valuemin="0" aria-valuemax="100">
+                                                  <span class="card-text" style="font-size: 15px;">{{ task.get_completed_count }}</span>
+                                                </div>
+                                              </div>
+                                              
                                         </div>
                                     </a>
                                 {% else %}

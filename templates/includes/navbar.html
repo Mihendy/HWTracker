@@ -14,6 +14,9 @@
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-pencil-square"></i>&nbsp;Редактор
                         </div>
+                        <div class="fw-bold group ms-5" style="font-size: 20px; color: #ffffff;" onclick="window.location.href='groups'">
+                            Управление группами
+                        </div>
                     {% else %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-people-fill"></i>&nbsp;{{ group }}</div>
@@ -21,7 +24,6 @@
                 </div>
             </div>
         </div>
-
         <div class="d-flex align-items-center">
             <div class="fw-bold username p-2"
                  style="font-size: 20px; color: #ffffff;">{{ user.first_name }} {{ user.last_name }}</div>
