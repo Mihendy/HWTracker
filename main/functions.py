@@ -10,6 +10,7 @@ def get_random_string32():
 def authorized_only(func):
     @wraps(func)
     def wrapper(request, *args, **kwargs):
+        request.session['previous_page'] = request.META['HTTP_REFERER']
         username = request.session.get('username')
         if username is None:
             return HttpResponseRedirect('/')
