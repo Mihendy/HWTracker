@@ -28,12 +28,7 @@ def index(request):
     if username is None:
         return render(request, template_name, {'client_id': CLIENT_ID,
                                                'redirect_uri': REDIRECT_URI})
-    previous_page = request.session.get('previous_page')
-    if previous_page:
-        del request.session['previous_page']  # очищаем значение в сессии
-        return redirect(previous_page)
-    else:
-        return redirect('student')
+    return redirect('student')
 
 
 def delete_task(request):
