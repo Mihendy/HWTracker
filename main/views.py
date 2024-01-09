@@ -17,7 +17,7 @@ from .models import Group, Task
 from .functions import authorized_only, editor_only, errors_to_text
 from config import SERVER_DOMAIN, CLIENT_SECRET, CLIENT_ID
 
-REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
+REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
 
 logger = logging.getLogger(__name__)
 
