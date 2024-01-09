@@ -4,7 +4,7 @@
 
         <div class="d-flex align-items-center">
             <a class="navbar-brand nav-logo">
-                <img src="{% static 'img/logo.svg' %}" alt="Logo" width="65" height="auto">
+                <img src="{% static 'img/logo.svg' %}" onclick="window.location.href='/'" alt="Logo" width="65" height="auto">
             </a>
             <div class="d-flex flex-column">
                 <div class="fw-bold replace"
@@ -14,7 +14,7 @@
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-pencil-square"></i>&nbsp;Редактор
                         </div>
-                        <div class="fw-bold group ms-5" style="font-size: 20px; color: #ffffff;" onclick="window.location.href='groups'">
+                        <div class="fw-bold group ms-5" style="font-size: 20px; color: #ffffff;" onclick="window.location.href='/groups'">
                             Управление группами
                         </div>
                     {% else %}
