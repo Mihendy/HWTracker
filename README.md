@@ -56,3 +56,5 @@ python manage.py runserver
   
 ## Лицензия
 Этот проект лицензируется под `Apache License 2.0`. Дополнительную информацию можно найти в файле LICENSE.
+
+Made with Love by FIIT
