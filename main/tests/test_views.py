@@ -61,7 +61,7 @@ class TestViews(TestCase):
 
         response = self.client.post(reverse('taskform'), self.task_data)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, '/')
+        self.assertRedirects(response, '/?next=/taskform')
 
     def test_edit_task_form_GET(self):
         self.set_user_editor_role(True)
@@ -87,4 +87,4 @@ class TestViews(TestCase):
 
         response = self.client.post(reverse('edit_task_form', args=[self.task.id]), updated_data)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, '/')
+        self.assertRedirects(response, '/?next=/taskform/1')
