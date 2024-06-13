@@ -18,6 +18,7 @@ from .functions import authorized_only, editor_only, errors_to_text
 from config import SERVER_DOMAIN, CLIENT_SECRET, CLIENT_ID
 
 REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
+# REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
 
 logger = logging.getLogger(__name__)
 
@@ -25,10 +26,13 @@ logger = logging.getLogger(__name__)
 def index(request):
     template_name = 'main/index.html'
     username = request.session.get('username')
+    next_uri = request.GET.get('next')
     if username is None:
+        request.session['next_uri'] = next_uri
         return render(request, template_name, {'client_id': CLIENT_ID,
                                                'redirect_uri': REDIRECT_URI})
-    return redirect('student')
+
+    return redirect(next_uri or 'student')
 
 
 def delete_task(request):
@@ -236,7 +240,8 @@ def handle_auth(request):
                                          last_name=last_name)
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
     logger.info(f"User {user} authorized")
-    return redirect('student')
+
+    return redirect(request.session.get('next_uri') or 'student')
 
 
 def logout(request):

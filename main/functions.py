@@ -12,7 +12,7 @@ def authorized_only(func):
     def wrapper(request, *args, **kwargs):
         username = request.session.get('username')
         if username is None:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(f'/?next={request.get_full_path()}')
         return func(request, *args, **kwargs)
 
     return wrapper
