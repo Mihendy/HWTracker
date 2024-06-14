@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ошибка {{ error_code }}{% endblock %}
+{% block content %}
+    <div class="main-div milk-bg">
+        <h1 class="h1-fgm-font logo-text">{{ error_code }}</h1>
+        <b>Упс, кажется у нас что-то, сломалось :( </b>
+        <a href="/">
+            <b>На главную</b>
+        </a>
+    </div>
+{% endblock %}
