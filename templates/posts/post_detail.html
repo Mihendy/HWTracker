@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Статьи{% endblock %}
+{% block content %}
+    <div class="gaps-nav">
+        <h1>{{ post.title }}</h1>
+        <div>
+            {{ post.body_as_markdown }}
+        </div>
+    </div>
+{% endblock %}

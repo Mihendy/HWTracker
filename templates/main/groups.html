@@ -2,11 +2,11 @@
 {% load static %}
 {% block title %} Группы {% endblock %}
 {% block content %}
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addGroupModal" tabindex="-1" aria-labelledby="addGroupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Создать группу</h1>
+                    <h1 class="modal-title fs-5" id="addGroupModalLabel">Создать группу</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <form method="post">
@@ -43,7 +43,7 @@
                 <th scope="col"></th>
                 <th scope="col">
                     <button type="button" class="btn btn-primary btn-sm bi-plus-lg" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"></button>
+                            data-bs-target="#addGroupModal"></button>
                 </th>
             </tr>
             </thead>

@@ -126,8 +126,7 @@ body > form {
 }
 
 .grid-container {
-    position: absolute;
-    top: 120px;
+    margin-top: 120px;
 }
 
 
@@ -272,4 +271,18 @@ body {
 
 .card-body-custom:hover .highlight_edit::after {
     opacity: 1;
+}
+
+.gaps-nav {
+    margin: 100px 20px 0 20px;
+}
+
+.nav-content-a {
+    font-size: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-content-a:hover {
+    color: #dedede;
 }

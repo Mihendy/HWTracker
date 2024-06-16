@@ -17,20 +17,20 @@ async function make_request(method, url, data) {
 }
 
 function recountRows() {
-    var rows = document.getElementsByClassName('group-row');
-    for (var i = 0; i < rows.length; i++) {
-        var counterCell = rows[i].getElementsByClassName('counter')[0];
+    let rows = document.getElementsByClassName('group-row');
+    for (let i = 0; i < rows.length; i++) {
+        let counterCell = rows[i].getElementsByClassName('counter')[0];
         counterCell.textContent = i + 1;
     }
 }
 
 async function checkTask(element, task_id, status, user_id) {
     const response = await make_request('POST', '/checktask/', {
-            task_id: task_id,
-            status: status,
-            user_id: user_id,
-        });
-    
+        task_id: task_id,
+        status: status,
+        user_id: user_id,
+    });
+
     const data = await response.json();
     if (data.success) {
         element.classList.toggle('selected-card');
@@ -40,20 +40,20 @@ async function checkTask(element, task_id, status, user_id) {
             element.setAttribute('onclick', "checkTask(this, " + task_id + ", 'completed', " + user_id + ");");
         }
     }
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
 async function deleteTaskBlock(taskId) {
     const response = await make_request('POST', '/deletetask/', {
-            task_id: taskId,
+        task_id: taskId,
     });
     const data = await response.json();
-    if (data.success){
+    if (data.success) {
         const taskBlock = document.getElementById(taskId);
         const tasksBox = taskBlock.parentElement;
         // console.log(tasksBox)
-        if (tasksBox.childElementCount === 1){
+        if (tasksBox.childElementCount === 1) {
             tasksBox.parentElement.remove();
         }
         taskBlock.remove();
@@ -64,28 +64,52 @@ async function deleteTaskBlock(taskId) {
 
 async function deleteGroup(groupId) {
     const response = await make_request('POST', '/deletegroup/', {
-            group_id: groupId,
+        group_id: groupId,
     });
     const data = await response.json();
-    if (data.success){
+    if (data.success) {
         const groupBlock = document.getElementById(groupId);
         groupBlock.remove();
         recountRows();
     }
-    console.log(data);
+    // console.log(data);
     return data;
 }
 
 async function deleteUser(userId) {
     const response = await make_request('POST', '/deleteuser/', {
-            user_id: userId,
+        user_id: userId,
     });
     const data = await response.json();
-    if (data.success){
+    if (data.success) {
         const userBlock = document.getElementById(userId);
         userBlock.remove();
         recountRows();
     }
-    console.log(data);
+    // console.log(data);
     return data;
+}
+
+async function createDeletePostModalView(postID) {
+    let confirmationText = document.querySelector('.confirmation-text')
+    let postCard = document.getElementById(postID)
+    let postTitle = postCard.querySelector('.card-title').textContent
+    confirmationText.textContent = `Вы действительно хотите удалить статью "${postTitle}"? Это действие необратимо.`
+    let postDeleteButton = document.getElementById('deleteButton')
+    postDeleteButton.onclick = function () {
+        deletePost(postID)
+    }
+}
+
+async function deletePost(postID) {
+    const response = await make_request('POST', '/deletepost/', {
+        post_id: postID,
+    });
+    const data = await response.json();
+    if (data.success) {
+        const userBlock = document.getElementById(postID)
+        userBlock.remove()
+        recountRows()
+    }
+    return data
 }

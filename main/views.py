@@ -6,19 +6,20 @@ from urllib.parse import parse_qs, urlparse
 import jwt
 import requests
 from django.contrib.auth import login
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from .functions import get_random_string32
 from users.models import User
+from django.views.decorators.http import require_POST
 
 from .forms import TaskForm, GroupForm
 from .models import Group, Task
 
 from .functions import authorized_only, editor_only, errors_to_text
-from config import SERVER_DOMAIN, CLIENT_SECRET, CLIENT_ID
+from config import SERVER_DOMAIN, CLIENT_ID, CLIENT_SECRET
 
-REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
-# REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
+# REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
+REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,9 @@ def index(request):
     return redirect(next_uri or 'student')
 
 
+@require_POST
+@authorized_only
+@editor_only
 def delete_task(request):
     data = json.loads(request.body)
     task_id = data.get('task_id')
@@ -48,6 +52,9 @@ def delete_task(request):
     return JsonResponse({'success': True})
 
 
+@require_POST
+@authorized_only
+@editor_only
 def delete_group(request):
     data = json.loads(request.body)
     group_id = data.get('group_id')
@@ -61,6 +68,9 @@ def delete_group(request):
     return JsonResponse({'success': True})
 
 
+@require_POST
+@authorized_only
+@editor_only
 def delete_user(request):
     data = json.loads(request.body)
     user_id = data.get('user_id')
@@ -226,7 +236,11 @@ def invites(request, _hash):
 
 
 def handle_auth(request):
-    code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]
+    try:
+        code = parse_qs(urlparse(request.get_full_path()).query)['code'][0]
+    except KeyError:
+        logger.warning("User unauthorized")
+        return HttpResponse(status=401)
     data = get_user_information(code)
     decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
     email = decoded['email']
@@ -249,15 +263,7 @@ def logout(request):
     return redirect('/')
 
 
-def get_task_separated_by_date(tasks: list[Task]) -> dict[date, list[Task]]:
-    out = dict()
-    for task in tasks:
-        _date = task.due_date.date()
-        if _date not in out:
-            out[_date] = []
-        out[_date].append(task)
-    return out
-
+# not views
 
 def get_user_information(code):
     request = requests.post('https://oauth2.googleapis.com/token',
@@ -269,6 +275,16 @@ def get_user_information(code):
                                 'grant_type': 'authorization_code',
                             })
     return request.json()
+
+
+def get_task_separated_by_date(tasks: list[Task]) -> dict[date, list[Task]]:
+    out = dict()
+    for task in tasks:
+        _date = task.due_date.date()
+        if _date not in out:
+            out[_date] = []
+        out[_date].append(task)
+    return out
 
 
 def get_tasks(group: Group) -> list[Task]:

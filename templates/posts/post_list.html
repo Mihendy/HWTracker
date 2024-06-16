@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Статьи{% endblock %}
+{% block content %}
+    <div class="modal fade" id="deletePostConfirmationModel" tabindex="-1"
+         aria-labelledby="deletePostConfirmationModelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deletePostConfirmationModelLabel">Удаление статьи</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <p class="confirmation-text">Confirmation text</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-danger" id="deleteButton" onclick="alert('Что-то пошло не так')">Да,
+                            удалить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-auto w-100 grid-container" style="gap: 20px; padding-left: 30px; padding-top: 120px">
+        {% for post in posts %}
+            <div class="card p-0" style="width: 18rem;" id="{{ post.id }}">
+                <img src="{{ post.get_first_image_src }}" class="card-img-top" style="height: 150px" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">
+                        {{ post.body_preview }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <b class="align-bottom"><a href="{{ post.get_absolute_url }}">Читать далее...</a></b>
+                        {% if user.is_editor %}
+                            <div>
+                                <a type="button" class="btn btn-warning btn-sm bi-pencil-fill"
+                                   href="{{ post.get_absolute_url }}/edit"></a>
+                                <button type="button" id="modal" class="btn btn-danger btn-sm bi-trash-fill"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deletePostConfirmationModel"
+                                        onclick="createDeletePostModalView({{ post.id }})"></button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}

@@ -13,16 +13,21 @@
                 <div class="d-flex flex-row align-items-center">
                     {% if user.is_editor %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
-                            <i class="bi bi-pencil-square"></i>&nbsp;Редактор
+                            <i class="bi bi-pencil-square"></i>&nbsp;<i>Редактор</i>
                         </div>
-                        <a class="fw-bold group ms-5" style="font-size: 20px; color: #ffffff; text-decoration: none;"
-                           href="/groups">
-                            К группам
+                        <a class="nav-content-a fw-bold group ms-5" href="/groups">
+                            Группы
                         </a>
                     {% else %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
-                            <i class="bi bi-people-fill"></i>&nbsp;{{ group }}</div>
+                            <i class="bi bi-people-fill"></i>&nbsp;<i>{{ group }}</i></div>
                     {% endif %}
+                    <a class="nav-content-a fw-bold group ms-5" href="/student">
+                        Задания
+                    </a>
+                    <a class="nav-content-a fw-bold group ms-5" href="/posts">
+                        Статьи
+                    </a>
                 </div>
             </div>
         </div>
