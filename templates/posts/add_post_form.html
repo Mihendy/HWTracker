@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ page }} {% endblock %}
+{% block content %}
+    <div class="main-form milk-bg">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-1">
+                <a style="font-size: 18px; color: black; text-decoration: none;" href="/posts">
+                    <b><i class="bi bi-arrow-left"></i>Назад</b>
+                </a>
+            </div>
+
+            {% if form_errors %}
+                <div class="shadow alert alert-danger">
+                    <ul>
+                        {% for field, errors in form_errors.items %}
+                            <li>{{ field }}:
+                                <ul>
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text"><i
+                                class="bi bi-paragraph"></i>&nbsp;&nbsp;{{ form.title.label }}</span>
+                        {{ form.title }}
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text"><i
+                                class="bi bi-link-45deg"></i>&nbsp;&nbsp;{{ form.slug.label }}</span>
+                        {{ form.slug }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <label class="form-label"><i class="bi bi-markdown-fill"></i>&nbsp;&nbsp;{{ form.body.label }}</label>
+                {{ form.body }}
+            </div>
+        
+
+            <div class="d-grid gap-2 pt-3">
+                <button type="submit" class="btn btn-secondary mb-auto btn-lg">Сохранить</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -94,7 +94,7 @@ async function createDeletePostModalView(postID) {
     let confirmationText = document.querySelector('.confirmation-text')
     let postCard = document.getElementById(postID)
     let postTitle = postCard.querySelector('.card-title').textContent
-    confirmationText.textContent = `Вы действительно хотите удалить статью "${postTitle}"? Это действие необратимо.`
+    confirmationText.innerHTML = `Вы действительно хотите удалить статью "${postTitle}"? Это действие <b>необратимо</b>.`
     let postDeleteButton = document.getElementById('deleteButton')
     postDeleteButton.onclick = function () {
         deletePost(postID)

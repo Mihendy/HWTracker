@@ -1,12 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} HWTracker {% endblock %}</title>
+    <title> HWTracker </title>
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
@@ -15,10 +18,76 @@
         <img src="{% static 'img/logo.svg' %}" alt="Logo" class="logo">
         <h1 class="h1-fgm-font logo-text">HW Tracker</h1>
     </div>
-    <div class="button-container">
-        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ client_id }}&scope=openid%20profile%20email&redirect_uri={{ redirect_uri }}&state=test123&nonce=123"
-           class="login-button">Войти</a>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-4">
+                <div class="d-flex justify-content-end mt-5">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="show-register-form"
+                               autocomplete="off">
+                        <label class="btn btn-secondary" for="show-register-form">Регистрация</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="show-login-form"
+                               autocomplete="off" checked>
+                        <label class="btn btn-secondary" for="show-login-form">Вход</label>
+                    </div>
+                </div>
+                <div class="form-container" id="register-form" style="display: none;">
+                    <form>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                            <input type="text" class="form-control" placeholder="Имя" aria-label="first_name" required>
+                            <input type="text" class="form-control" placeholder="Фамилия" aria-label="second_name"
+                                   required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
+                            <input type="email" class="form-control" placeholder="Логин" aria-label="login"
+                                   required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                            <input type="email" class="form-control" placeholder="Эл. почта" aria-label="email"
+                                   required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+                            <input type="password" class="form-control" placeholder="Пароль" aria-label="password"
+                                   required>
+                            <input type="password" class="form-control" placeholder="Повтор пароля"
+                                   aria-label="password_2" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary mb-3">Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="form-container" id="login-form">
+                    <form>
+                        <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
+                            <input type="email" class="form-control" placeholder="Логин" aria-label="login"
+                                   required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+                            <input type="password" class="form-control" placeholder="Пароль" aria-label="password"
+                                   required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary mb-3">Войти</button>
+                        <div class="input-group mb-3" style="visibility: hidden">
+                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+                        </div>
+                        <div class="input-group mb-3" style="visibility: hidden">
+                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <h3>или</h3>
+    <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={{ client_id }}&scope=openid%20profile%20email&redirect_uri={{ redirect_uri }}&state=test123&nonce=123"
+       class="btn btn-secondary"><i class="bi bi-google"></i>&nbsp;&nbsp;Продолжить в <b>Google</b></a>
 </div>
+<script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

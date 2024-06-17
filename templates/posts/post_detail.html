@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Статьи{% endblock %}
 {% block content %}
-    <div class="gaps-nav">
+    <div class="markdown-display" style="max-width: 50%; margin-left: auto; margin-right: auto; min-width: 300px">
         <h1>{{ post.title }}</h1>
         <div>
             {{ post.body_as_markdown }}

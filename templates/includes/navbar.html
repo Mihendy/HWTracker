@@ -15,19 +15,10 @@
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-pencil-square"></i>&nbsp;<i>Редактор</i>
                         </div>
-                        <a class="nav-content-a fw-bold group ms-5" href="/groups">
-                            Группы
-                        </a>
                     {% else %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-people-fill"></i>&nbsp;<i>{{ group }}</i></div>
                     {% endif %}
-                    <a class="nav-content-a fw-bold group ms-5" href="/student">
-                        Задания
-                    </a>
-                    <a class="nav-content-a fw-bold group ms-5" href="/posts">
-                        Статьи
-                    </a>
                 </div>
             </div>
         </div>
@@ -35,9 +26,28 @@
             <div class="fw-bold username p-2"
                  style="font-size: 20px; color: #ffffff;">{{ user.first_name }} {{ user.last_name }}</div>
 
-            <a href="/logout" class="btn btn-danger btn-lg" role="button">Выйти&nbsp;<i class="bi bi-door-closed"></i>
-            </a>
+            {#                        <a href="/logout" class="btn btn-danger btn-lg" role="button">Выйти&nbsp;<i class="bi bi-door-closed"></i>#}
+            {#                        </a>#}
+            <div class="nav-item dropdown">
+                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="bi bi-list"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    {% if user.is_editor %}
+                        <li><a class="dropdown-item" href="/groups">Группы</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="/student">Задания</a></li>
+                    <li><a class="dropdown-item" href="/posts">Статьи</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a href="/logout" class="dropdown-item text-danger">Выйти&nbsp;<i class="bi bi-door-closed"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-
     </div>
 </nav>
+{#<script src="{% static 'js/dropdown.js' %}"></script>#}

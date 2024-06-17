@@ -10,6 +10,13 @@
 
 }
 
+.main-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 150px 30px 100px 30px;
+}
+
 .milk-bg {
     background-color: #D9D9D9 !important;
 }
@@ -56,6 +63,8 @@ body > form {
     line-height: 89%;
     text-align: center;
     color: #000000;
+    padding-top: 10px;
+    margin: 0;
 }
 
 /*кнопка входа*/
@@ -120,7 +129,7 @@ body > form {
 }
 
 .text-right-corner {
-    font-family: 'Franklin Gothic Medium';
+    font-family: 'Franklin Gothic Medium', serif;
     font-size: 40px;
     color: #000000;
 }
@@ -273,16 +282,21 @@ body {
     opacity: 1;
 }
 
-.gaps-nav {
+.markdown-display {
     margin: 100px 20px 0 20px;
 }
 
-.nav-content-a {
+.markdown-display img {
+    width: 100%;
+    height: auto;
+}
+
+.group.nav-content-a {
     font-size: 20px;
     color: #ffffff;
     text-decoration: none;
 }
 
-.nav-content-a:hover {
+.group.nav-content-a:hover {
     color: #dedede;
 }
