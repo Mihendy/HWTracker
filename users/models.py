@@ -12,7 +12,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
-        out = f'{self.username} - {self.email}'
+        out = f'{self.email}'
         out = out + (' (editor)' if self.is_editor else '')
         return out
 

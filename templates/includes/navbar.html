@@ -11,10 +11,14 @@
                 <div class="fw-bold replace"
                      style="font-size: 20px; color: #ffffff;">{{ user.first_name }} {{ user.last_name }}</div>
                 <div class="d-flex flex-row align-items-center">
-                    {% if user.is_editor %}
+                    {% if user.is_superuser %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
-                            <i class="bi bi-pencil-square"></i>&nbsp;<i>Редактор</i>
+                            <i class="bi bi-eye-fill"></i>&nbsp;<i>Администратор</i>
                         </div>
+                    {% elif user.is_editor %}
+                    <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
+                        <i class="bi bi-pencil-square"></i>&nbsp;<i>Редактор</i>
+                    </div>
                     {% else %}
                         <div class="fw-bold group" style="font-size: 20px; color: #ffffff;">
                             <i class="bi bi-people-fill"></i>&nbsp;<i>{{ group }}</i></div>
@@ -25,15 +29,15 @@
         <div class="d-flex align-items-center">
             <div class="fw-bold username p-2"
                  style="font-size: 20px; color: #ffffff;">{{ user.first_name }} {{ user.last_name }}</div>
-
-            {#                        <a href="/logout" class="btn btn-danger btn-lg" role="button">Выйти&nbsp;<i class="bi bi-door-closed"></i>#}
-            {#                        </a>#}
             <div class="nav-item dropdown">
                 <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
                     <i class="bi bi-list"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    {% if user.is_superuser %}
+                        <li><a class="dropdown-item" href="/admin">Администрирование</a></li>
+                    {% endif %}
                     {% if user.is_editor %}
                         <li><a class="dropdown-item" href="/groups">Группы</a></li>
                     {% endif %}

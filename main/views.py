@@ -5,9 +5,13 @@ from urllib.parse import parse_qs, urlparse
 
 import jwt
 import requests
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse_lazy
+
+from users.forms import UserRegisterForm, UserLoginForm
 from .functions import get_random_string32
 from users.models import User
 from django.views.decorators.http import require_POST
@@ -25,15 +29,72 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
+    user = request.user
     template_name = 'main/index.html'
-    username = request.session.get('username')
-    next_uri = request.GET.get('next')
-    if username is None:
-        request.session['next_uri'] = next_uri
-        return render(request, template_name, {'client_id': CLIENT_ID,
-                                               'redirect_uri': REDIRECT_URI})
+    reg_form_data = request.session.pop('invalid_reg_form', None)
+    login_form_data = request.session.pop('invalid_login_form', None)
+    reg_form = UserRegisterForm(initial=reg_form_data) if reg_form_data else UserRegisterForm(request.POST or None)
+    login_form = UserLoginForm(initial=login_form_data) if login_form_data else UserLoginForm(request.POST or None)
+    next_uri = request.GET.get('next') or request.session.get('next_uri')
+    context = {'client_id': CLIENT_ID, 'redirect_uri': REDIRECT_URI,
+               'reg_form': reg_form, 'login_form': login_form, 'register_state': False}
+    reg_form_error_out = request.session.pop('invalid_reg_form_out', None)
+    login_form_error_out = request.session.pop('invalid_login_form_out', None)
+    if reg_form_error_out:
+        context['form_errors'] = reg_form_error_out
+        context['register_state'] = True
+    elif login_form_error_out:
+        context['form_errors'] = login_form_error_out
+        context['register_state'] = False
+    if user.is_authenticated:
+        return redirect(next_uri or 'student')
+    else:
+        if next_uri:
+            request.session['next_uri'] = next_uri
+        return render(request, template_name, context)
 
-    return redirect(next_uri or 'student')
+
+@require_POST
+def post_register(request):
+    form = UserRegisterForm(request.POST)
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        first_name = form.cleaned_data['first_name']
+        last_name = form.cleaned_data['second_name']
+        password = form.cleaned_data['password']
+        user = User.objects.create(username=email,
+                                   email=email,
+                                   first_name=first_name,
+                                   last_name=last_name)
+        user.set_password(password)
+        user.save()
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        logger.info(f"User {user} registered and authorized")
+
+        return redirect(request.session.get('next_uri') or 'student')
+    else:
+        out = errors_to_text(form)
+        request.session['invalid_reg_form'] = form.data
+        request.session['invalid_reg_form_out'] = out
+        return redirect(reverse_lazy('index'))
+
+
+@require_POST
+def post_login(request):
+    form = UserLoginForm(request.POST)
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        user = User.objects.get(email=email)
+
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        logger.info(f"User {user} authorized")
+
+        return redirect(request.session.get('next_uri') or 'student')
+    else:
+        out = errors_to_text(form)
+        request.session['invalid_login_form'] = form.data
+        request.session['invalid_login_form_out'] = out
+        return redirect(reverse_lazy('index'))
 
 
 @require_POST
@@ -246,14 +307,13 @@ def handle_auth(request):
     email = decoded['email']
     first_name = decoded['given_name']
     last_name = decoded.get('family_name') or ""
-    name = email.split("@")[0]
-    request.session['username'], request.session['email'] = name, email
-    user, _ = User.objects.get_or_create(username=name,
+    request.session['username'], request.session['email'] = email, email
+    user, _ = User.objects.get_or_create(username=email,
                                          email=email,
                                          first_name=first_name,
                                          last_name=last_name)
     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-    logger.info(f"User {user} authorized")
+    logger.info(f"User {user} authorized (google)")
 
     return redirect(request.session.get('next_uri') or 'student')
 

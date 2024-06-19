@@ -11,21 +11,7 @@
                 </a>
             </div>
 
-            {% if form_errors %}
-                <div class="shadow alert alert-danger">
-                    <ul>
-                        {% for field, errors in form_errors.items %}
-                            <li>{{ field }}:
-                                <ul>
-                                    {% for error in errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+            {% include "includes/error-alert.html" %}
 
             <div class="input-group mb-2">
                 <span class="input-group-text"><i class="bi bi-people-fill"></i>&nbsp;&nbsp;Группа</span>

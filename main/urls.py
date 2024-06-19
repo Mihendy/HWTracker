@@ -2,7 +2,6 @@
 from django.urls import path
 from django.views.generic import RedirectView
 
-
 from . import views
 
 urlpatterns = [
@@ -11,6 +10,8 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('logout/', RedirectView.as_view(url='/logout')),
     path('', views.index, name='index'),
+    path('postRegister/', views.post_register, name="post_register"),
+    path('postLogin/', views.post_login, name="post_login"),
     path('groups', views.groups, name='groups'),
     path('groups/', RedirectView.as_view(url='/groups')),
     path('groups/<int:group_id>', views.group_detail, name='group_detail'),

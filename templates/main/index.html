@@ -18,64 +18,55 @@
         <img src="{% static 'img/logo.svg' %}" alt="Logo" class="logo">
         <h1 class="h1-fgm-font logo-text">HW Tracker</h1>
     </div>
+    
+    {% include "includes/error-alert.html" %}
+    
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-4">
                 <div class="d-flex justify-content-end mt-5">
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check" name="btnradio" id="show-register-form"
-                               autocomplete="off">
-                        <label class="btn btn-secondary" for="show-register-form">Регистрация</label>
+                               autocomplete="off" {% if register_state %}checked{% endif %}>
+                        <label class="btn btn-outline-secondary" for="show-register-form">Регистрация</label>
 
                         <input type="radio" class="btn-check" name="btnradio" id="show-login-form"
-                               autocomplete="off" checked>
-                        <label class="btn btn-secondary" for="show-login-form">Вход</label>
+                               autocomplete="off" {% if not register_state %}checked{% endif %}>
+                        <label class="btn btn-outline-secondary" for="show-login-form">Вход</label>
                     </div>
                 </div>
-                <div class="form-container" id="register-form" style="display: none;">
-                    <form>
+                <div class="form-container" id="register-form" {% if not register_state %}style="display: none;"{% endif %}>
+                    <form method="post" action="{% url 'post_register' %}">
+                        {% csrf_token %}
                         <div class="input-group mt-3 mb-3">
                             <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                            <input type="text" class="form-control" placeholder="Имя" aria-label="first_name" required>
-                            <input type="text" class="form-control" placeholder="Фамилия" aria-label="second_name"
-                                   required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
-                            <input type="email" class="form-control" placeholder="Логин" aria-label="login"
-                                   required>
+                            {{ reg_form.first_name }}
+                            {{ reg_form.second_name }}
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                            <input type="email" class="form-control" placeholder="Эл. почта" aria-label="email"
-                                   required>
+                            {{ reg_form.email }}
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                            <input type="password" class="form-control" placeholder="Пароль" aria-label="password"
-                                   required>
-                            <input type="password" class="form-control" placeholder="Повтор пароля"
-                                   aria-label="password_2" required>
+                            {{ reg_form.password }}
+                            {{ reg_form.password_re }}
                         </div>
                         <button type="submit" class="btn btn-secondary mb-3">Зарегистрироваться</button>
                     </form>
                 </div>
-                <div class="form-container" id="login-form">
-                    <form>
+                <div class="form-container" id="login-form" {% if register_state %}style="display: none;"{% endif %}>
+                    <form method="post" action="{% url 'post_login' %}">
+                        {% csrf_token %}
                         <div class="input-group mt-3 mb-3">
-                            <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
-                            <input type="email" class="form-control" placeholder="Логин" aria-label="login"
-                                   required>
+                            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                            {{ login_form.email }}
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                            <input type="password" class="form-control" placeholder="Пароль" aria-label="password"
-                                   required>
+                            {{ login_form.password }}
                         </div>
                         <button type="submit" class="btn btn-secondary mb-3">Войти</button>
-                        <div class="input-group mb-3" style="visibility: hidden">
-                            <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
-                        </div>
                         <div class="input-group mb-3" style="visibility: hidden">
                             <span class="input-group-text"><i class="bi bi-asterisk"></i></span>
                         </div>
