@@ -1,10 +1,10 @@
 import markdown
 from bs4 import BeautifulSoup
 from django.db import models
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from users.models import User
-from django.urls import reverse
 
 
 class Post(models.Model):

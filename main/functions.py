@@ -1,6 +1,7 @@
-from django.http import HttpResponseForbidden, HttpResponseRedirect
-from django.contrib.auth.hashers import get_random_string
 from functools import wraps
+
+from django.contrib.auth.hashers import get_random_string
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 
 
 def get_random_string32():

@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from http.client import responses
+
+from django.shortcuts import render
 
 
 class CustomErrorHandlerMiddleware:

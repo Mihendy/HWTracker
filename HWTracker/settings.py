@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 import posts.apps
-from config import SECRET_KEY, DEBUG, SERVER_DOMAIN
+from config import DEBUG, SECRET_KEY, SERVER_DOMAIN
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

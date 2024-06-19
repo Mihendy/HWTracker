@@ -1,9 +1,11 @@
 from datetime import datetime
+
 from django.test import TestCase
-from users.models import User
-from main.models import Group
+
 from main.forms import TaskForm
+from main.models import Group
 from main.validators import validate_extended_slug
+from users.models import User
 
 
 class TaskFormTests(TestCase):

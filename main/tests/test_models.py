@@ -1,9 +1,11 @@
-from django.test import TestCase
-from users.models import User
-from main.models import Group, Task, GroupAdmin
 from datetime import datetime, timedelta
-from django.utils import timezone
 from random import shuffle
+
+from django.test import TestCase
+from django.utils import timezone
+
+from main.models import Group, GroupAdmin, Task
+from users.models import User
 
 
 class TestGroupModel(TestCase):

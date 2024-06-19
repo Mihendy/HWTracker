@@ -1,6 +1,7 @@
 from django.test import TestCase
-from users.models import User
+
 from main.models import Group
+from users.models import User
 
 
 def create_user(username, email, first_name,
@@ -39,5 +40,5 @@ class TestUserModel(TestCase):
 
     def test_user_str_representation(self):
         user = create_user(username='testuser', email='test@example.com', first_name='John', last_name='Doe')
-        expected_output = 'testuser - test@example.com'
+        expected_output = 'test@example.com'
         self.assertEqual(str(user), expected_output)

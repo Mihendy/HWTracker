@@ -1,6 +1,7 @@
 # HWTracker/urls.py
 from django.contrib import admin
 from django.urls import include, path
+
 # noinspection PyUnresolvedReferences
 from main import views
 

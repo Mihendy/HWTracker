@@ -1,8 +1,9 @@
 from django.test import SimpleTestCase
-from django.urls import reverse, resolve
-from main.views import (delete_group, delete_user, index,
-                        invites, student, logout, group_detail,
-                        add_task_form, check_task, delete_task)
+from django.urls import resolve, reverse
+
+from main.views import (add_task_form, check_task, delete_group, delete_task,
+                        delete_user, group_detail, index, invites, logout,
+                        student)
 
 
 class TestUrls(SimpleTestCase):

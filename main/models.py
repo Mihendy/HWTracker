@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.contrib import admin
 from django.db import models
-from .functions import get_random_string32
-from django.conf import settings
 from django.urls import reverse
+
+from .functions import get_random_string32
 
 
 class Group(models.Model):

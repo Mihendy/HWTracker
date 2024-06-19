@@ -5,22 +5,21 @@ from urllib.parse import parse_qs, urlparse
 
 import jwt
 import requests
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import redirect, render, get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-
-from users.forms import UserRegisterForm, UserLoginForm
-from .functions import get_random_string32
-from users.models import User
 from django.views.decorators.http import require_POST
 
-from .forms import TaskForm, GroupForm
-from .models import Group, Task
+from config import CLIENT_ID, CLIENT_SECRET, SERVER_DOMAIN
+from users.forms import UserLoginForm, UserRegisterForm
+from users.models import User
 
-from .functions import authorized_only, editor_only, errors_to_text
-from config import SERVER_DOMAIN, CLIENT_ID, CLIENT_SECRET
+from .forms import GroupForm, TaskForm
+from .functions import (authorized_only, editor_only, errors_to_text,
+                        get_random_string32)
+from .models import Group, Task
 
 # REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
 REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'

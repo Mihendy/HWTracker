@@ -3,7 +3,8 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 
 from .models import User
-from .validators import validate_unique_email, validate_password_length, validate_password_chars
+from .validators import (validate_password_chars, validate_password_length,
+                         validate_unique_email)
 
 
 class UserRegisterForm(forms.ModelForm):
