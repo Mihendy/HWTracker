@@ -21,8 +21,8 @@ from .functions import (authorized_only, editor_only, errors_to_text,
                         get_random_string32)
 from .models import Group, Task
 
-# REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
-REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
+REDIRECT_URI = f'https://{SERVER_DOMAIN}/auth'
+# REDIRECT_URI = f'http://{SERVER_DOMAIN}/auth'
 
 logger = logging.getLogger(__name__)
 
@@ -201,7 +201,12 @@ def add_task_form(request, task_id=None):
         # Editing an existing task
         page_title = 'Изменение'
         task = get_object_or_404(Task, id=task_id)
-        form = TaskForm(request.POST or None, instance=task)
+        if task:
+            related_posts_ids = list(map(lambda post: post.id, task.posts.all()))
+            initial = {'posts': related_posts_ids}
+            form = TaskForm(request.POST or None, instance=task, initial=initial)
+        else:
+            form = TaskForm(request.POST or None, instance=task)
     else:
         # Creating a new task
         page_title = 'Создание'
@@ -217,21 +222,35 @@ def add_task_form(request, task_id=None):
             group = Group.objects.get(id=_id)
 
             if task_id:
-                task.subject = form.cleaned_data["subject"]
-                task.topic = form.cleaned_data["topic"]
-                task.description = form.cleaned_data["description"]
-                task.due_date = form.cleaned_data["due_date"]
-                task.group = group
+                task = form.save(commit=False)
                 task.save()
+                task.group = group
+                task.posts.set(form.cleaned_data["posts"])
+                task.save()
+                # task.subject = form.cleaned_data["subject"]
+                # task.topic = form.cleaned_data["topic"]
+                # task.description = form.cleaned_data["description"]
+                # task.due_date = form.cleaned_data["due_date"]
+                # task.group = group
+                # print(form.cleaned_data["posts"])
+                #
+                # print(task.posts)
             else:
-                new_task = Task(
-                    subject=form.cleaned_data["subject"],
-                    topic=form.cleaned_data["topic"],
-                    description=form.cleaned_data["description"],
-                    due_date=form.cleaned_data["due_date"],
-                    group=group
-                )
-                new_task.save()
+                task = form.save(commit=False)
+                task.save()
+                task.group = group
+                task.posts.set(form.cleaned_data["posts"])
+                task.save()
+
+                # new_task = Task(
+                #     subject=form.cleaned_data["subject"],
+                #     topic=form.cleaned_data["topic"],
+                #     description=form.cleaned_data["description"],
+                #     due_date=form.cleaned_data["due_date"],ё
+                #     group=group,
+                # )
+                # new_task.posts.set(form.cleaned_data["posts"])
+                # new_task.save()
 
             return redirect("/student")
         else:

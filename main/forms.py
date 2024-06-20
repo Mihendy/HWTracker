@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django import forms
 
+from posts.models import Post
 from .models import Group, Task
 from .validators import validate_extended_slug
 
@@ -52,6 +53,13 @@ class TaskForm(forms.ModelForm):
             attrs={'type': 'datetime-local', 'class': 'form-control', 'max': datetime(2999, 12, 31)}
         ),
         label='Сдать до')
+
+    posts = forms.ModelMultipleChoiceField(
+        queryset=Post.objects.all(),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
+        label='Связанные статьи',
+        required = False
+    )
 
     class Meta:
         model = Task

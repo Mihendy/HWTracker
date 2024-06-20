@@ -25,8 +25,8 @@
                              {% else %}class="card border-dark mb-3 selectable-card"{% endif %}
                                 {% if not user.is_editor %}
                              onclick="checkTask(this, '{{ task.id }}', '{{ task.status }}', '{{ user.id }}');" {% endif %}
-                             style="width: 18rem; height: 18rem; margin: 1rem; position: relative;" id="{{ task.id }}">
-                            <div class="card-header" style="font-weight: 800; cursor: pointer;">
+                             style="width: 18rem; margin: 1rem; position: relative;" id="{{ task.id }}">
+                            <div class="card-header" style="font-weight: 800; cursor: pointer; padding-bottom: 15px" >
                                 {% if user.is_editor %}
                                     <span class="highlight_remove" onclick="deleteTaskBlock('{{ task.id }}')">
                                     {{ task.subject }}
@@ -35,7 +35,7 @@
                                     {{ task.subject }}
                                 {% endif %}
                             </div>
-                            <div class="card-body card-body-custom h-100">
+                            <div class="card-body card-body-custom" style="height: 14rem">
                                 {% if user.is_editor %}
                                     <a class="highlight_edit h-100" href='/taskform/{{ task.id }}'>
                                         <div class="d-flex flex-column h-100">
@@ -53,31 +53,46 @@
                                                 </p>
                                             </div>
                                             <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: {{ task.get_completed_ratio }}%" aria-valuemin="0" aria-valuemax="100">
-                                                  <span class="card-text" style="font-size: 15px;">{{ task.get_completed_count }}</span>
+                                                <div class="progress-bar" role="progressbar"
+                                                     style="width: {{ task.get_completed_ratio }}%" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    <span class="card-text"
+                                                          style="font-size: 15px;">{{ task.get_completed_count }}
+                                                    </span>
                                                 </div>
-                                              </div>
-                                              
+                                            </div>
+
                                         </div>
                                     </a>
                                 {% else %}
                                     <div class="d-flex flex-column h-100">
-                                            <div>
-                                                <h5 class="card-title"
-                                                    style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
-                                                <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
-                                            </div>
-                                            <div class="d-flex justify-content-between mt-auto">
-                                                <p class="date">
-                                                    <i class="bi bi-people-fill"></i>&nbsp;{{ task.group }}
-                                                </p>
-                                                <p class="task-group">
-                                                    <i class="bi bi-clock-fill"></i>&nbsp;{{ task.due_date|date:"H:i" }}
-                                                </p>
-                                            </div>
+                                        <div>
+                                            <h5 class="card-title"
+                                                style="font-size: 14px; font-weight: bold;">{{ task.topic }}</h5>
+                                            <p class="card-text" style="font-size: 15px;">{{ task.description }}</p>
                                         </div>
+                                        <div class="d-flex justify-content-between mt-auto">
+                                            <p class="date">
+                                                <i class="bi bi-people-fill"></i>&nbsp;{{ task.group }}
+                                            </p>
+                                            <p class="task-group">
+                                                <i class="bi bi-clock-fill"></i>&nbsp;{{ task.due_date|date:"H:i" }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 {% endif %}
                             </div>
+                            {% if task.posts.all %}
+                                <div class="card-footer d-flex gap-2 flex-wrap" style="cursor: auto">
+                                    {% for post in task.posts.all %}
+                                        <a href="{{ post.get_absolute_url }}">
+                                        <span class="badge rounded-pill bg-info">{{ post.title }}
+                                            <i class="bi bi-box-arrow-up-right"></i>
+                                        </span>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>

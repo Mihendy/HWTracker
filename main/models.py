@@ -34,6 +34,7 @@ class Task(models.Model):
     due_date = models.DateTimeField()
     completed_by = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='completed_tasks')
     group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True, related_name='tasks')
+    posts = models.ManyToManyField('posts.Post', blank=True, related_name='tasks')
 
     def __str__(self):
         return f'{self.subject} - {self.topic}'
@@ -43,10 +44,10 @@ class Task(models.Model):
 
     def get_completed_count(self):
         return self.completed_by.count()
-    
+
     def get_group_size(self):
         return self.group.users.count()
-    
+
     def get_completed_ratio(self):
         if self.get_group_size() == 0:
             return 0
