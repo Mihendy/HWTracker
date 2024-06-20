@@ -320,20 +320,25 @@ def handle_auth(request):
     except KeyError:
         logger.warning("User unauthorized")
         return HttpResponse(status=401)
-    data = get_user_information(code)
-    decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
-    email = decoded['email']
-    first_name = decoded['given_name']
-    last_name = decoded.get('family_name') or ""
-    request.session['username'], request.session['email'] = email, email
-    user, _ = User.objects.get_or_create(username=email,
-                                         email=email,
-                                         first_name=first_name,
-                                         last_name=last_name)
-    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-    logger.info(f"User {user} authorized (google)")
+    # todo: fix error
+    try:
+        data = get_user_information(code)
+        decoded = jwt.decode(data['id_token'], '', algorithms='none', options={'verify_signature': False})
+        email = decoded['email']
+        first_name = decoded['given_name']
+        last_name = decoded.get('family_name') or ""
+        request.session['username'], request.session['email'] = email, email
+        user, _ = User.objects.get_or_create(username=email,
+                                             email=email,
+                                             first_name=first_name,
+                                             last_name=last_name)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        logger.info(f"User {user} authorized (google)")
 
-    return redirect(request.session.get('next_uri') or 'student')
+        return redirect(request.session.get('next_uri') or 'student')
+    except Exception:
+        logger.error("Google User already registered as model")
+        return HttpResponse(status=401)
 
 
 def logout(request):
