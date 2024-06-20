@@ -24,14 +24,19 @@ class CustomErrorHandlerMiddleware:
                     'error_text': error_text,
                     'error_code': response.status_code
                 }, status=response.status_code)
-
-            user = request.user
-            group = user.group
-            return render(request, 'error.html', {
-                'user': request.user,
-                'error_code': response.status_code,
-                'error_text': error_text,
-                'group': group.name if group is not None else 'Нет группы'
-            }, status=response.status_code)
+            try:
+                user = request.user
+                group = user.group
+                return render(request, 'error.html', {
+                    'user': request.user,
+                    'error_code': response.status_code,
+                    'error_text': error_text,
+                    'group': group.name if group is not None else 'Нет группы'
+                }, status=response.status_code)
+            except Exception:
+                return render(request, 'error_no_nav.html', {
+                    'error_text': error_text,
+                    'error_code': response.status_code
+                }, status=response.status_code)
 
         return response
