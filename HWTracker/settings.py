@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'users.apps.UsersConfig',
-    'posts.apps.PostsConfig'
+    'posts.apps.PostsConfig',
+    'markdownify.apps.MarkdownifyConfig',
 ]
 
 MIDDLEWARE = [
@@ -97,7 +98,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'rootstatic')
 
@@ -127,4 +128,56 @@ LOGGING = {
         'handlers': ['file'],
         'level': 'DEBUG',
     },
+}
+
+MARKDOWNIFY_WHITELIST_TAGS = [
+    'table',
+    'thead',
+    'tbody',
+    'th',
+    'tr',
+    'td',
+]
+
+MARKDOWNIFY = {
+    "default": {
+        "BLEACH": False,
+        "WHITELIST_TAGS": [
+            'a',
+            'abbr',
+            'acronym',
+            'b',
+            'blockquote',
+            'em',
+            'i',
+            'li',
+            'ol',
+            'p',
+            'strong',
+            'ul',
+            'code',
+            'table',
+            'thead',
+            'tbody',
+            'th',
+            'tr',
+            'td',
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "h7",
+            "h8",
+        ],
+        # 'WHITELIST_ATTRS': [
+        #     'src',
+        # ]
+        "MARKDOWN_EXTENSIONS": [
+            "markdown.extensions.fenced_code",  # dotted path
+            "fenced_code",  # also works
+            "markdown.extensions.extra"
+        ]
+    }
 }

@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load markdownify %}
 {% block title %}Статьи{% endblock %}
 {% block content %}
     <div class="markdown-display" style="max-width: 50%; margin-left: auto; margin-right: auto; min-width: 300px">
         <h1>{{ post.title }}</h1>
         <div>
-            {{ post.body_as_markdown }}
+            {{ post.body | markdownify }}
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let tables = document.querySelectorAll('table');
+            Array.prototype.forEach.call(tables, function (table) {
+                table.classList.add('table', 'table-striped', 'table-bordered', 'border-secondary');
+
+                let headers = table.querySelectorAll('th');
+                Array.prototype.forEach.call(headers, function (header) {
+                    header.setAttribute('scope', 'col');
+                });
+            });
+        });
+    </script>
 {% endblock %}
